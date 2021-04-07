@@ -5,7 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Common",
+  "description": "Crawler for Gerrit",
   "keywords": [],
   "main": "target/es5/index.js",
   "source": "target/ts/index.ts",

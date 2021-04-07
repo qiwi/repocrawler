@@ -1,7 +1,7 @@
 {
   "name": "@qiwi/repocrawler",
   "version": "0.0.0",
-  "description": "Crawlers and analyzers for different VCS",
+  "description": "Crawlers and analyzers for Gerrit & GitHub",
   "workspaces": [
     "packages/*"
   ],
