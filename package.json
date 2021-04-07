@@ -1,8 +1,7 @@
 {
-  "name": "blank-ts-monorepo",
+  "name": "@qiwi/repocrawler",
   "version": "0.0.0",
-  "description": "Blank TS monorepo",
-  "main": "target/es5/index.ts",
+  "description": "Crawlers and analyzers for different VCS",
   "workspaces": [
     "packages/*"
   ],
@@ -11,7 +10,7 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes && lerna run clean",
     "lint": "lerna run lint --parallel --stream --no-prefix",
-    "test": "npm-run-all -p -l lint test:unit test:depcheck test:depaudit",
+    "test": "npm-run-all -p -l lint test:unit test:depaudit",
     "test:unit": "jest --runInBand --detectOpenHandles --forceExit",
     "test:report": "yarn test && yarn coveralls:push",
     "test:concurrent": "lerna run test --parallel --stream --no-prefix && yarn coverage:merge",
@@ -38,6 +37,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qiwi/blank-ts-monorepo.git"
+    "url": "git+https://github.com/qiwi/repocrawler.git"
   }
 }

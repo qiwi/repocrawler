@@ -12,7 +12,7 @@
   ],
   "testMatch": [
     "<rootDir>/src/test/js/*.js",
-    "<rootDir>/src/test/ts/*.ts"
+    "<rootDir>/src/test/ts/**/*.ts"
   ],
   "testPathIgnorePatterns": [
     "/node_modules/"
