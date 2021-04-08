@@ -1,5 +1,5 @@
 {
-  "name": "blank-ts-monorepo-common",
+  "name": "@qiwi/repocrawler-common",
   "out": "./docs",
   "exclude": ["src/test", "**/node_modules/**", "paralleljs"],
   "externalPattern": ["**/node_modules/**"],

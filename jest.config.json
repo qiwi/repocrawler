@@ -6,7 +6,6 @@
   "testFailureExitCode": 1,
   "projects": [
     "<rootDir>/packages/common/jest.config.json",
-    "<rootDir>/packages/facade/jest.config.json",
-    "<rootDir>/packages/plugin/jest.config.json"
+    "<rootDir>/packages/gerrit/jest.config.json"
   ]
 }

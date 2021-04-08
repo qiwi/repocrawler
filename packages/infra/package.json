@@ -1,5 +1,5 @@
 {
-  "name": "blank-ts-monorepo-infra",
+  "name": "@qiwi/repocrawler-infra",
   "version": "0.0.0",
   "private": false,
   "publishConfig": {
@@ -39,13 +39,12 @@
     "typescript": "^4.2.3"
   },
   "license": "MIT",
-  "author": "Anton Golub <mailbox@antongolub.ru>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qiwi/blank-ts-monorepo.git"
+    "url": "git+https://github.com/qiwi/repocrawler.git"
   },
   "bugs": {
-    "url": "https://github.com/qiwi/blank-ts-monorepo/issues"
+    "url": "https://github.com/qiwi/repocrawler/issues"
   },
-  "homepage": "https://github.com/qiwi/blank-ts-monorepo/#readme"
+  "homepage": "https://github.com/qiwi/repocrawler/#readme"
 }

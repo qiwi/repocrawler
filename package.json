@@ -1,8 +1,7 @@
 {
-  "name": "blank-ts-monorepo",
+  "name": "@qiwi/repocrawler",
   "version": "0.0.0",
-  "description": "Blank TS monorepo",
-  "main": "target/es5/index.ts",
+  "description": "Crawlers and analyzers for Gerrit & GitHub",
   "workspaces": [
     "packages/*"
   ],
@@ -38,6 +37,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qiwi/blank-ts-monorepo.git"
+    "url": "git+https://github.com/qiwi/repocrawler.git"
   }
 }

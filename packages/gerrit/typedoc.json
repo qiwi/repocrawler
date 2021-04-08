@@ -1,7 +1,7 @@
 {
-  "name": "blank-ts-monorepo-facade",
+  "name": "@qiwi/repocrawler-gerrit",
   "out": "./docs",
-  "exclude": ["src/test", "**/node_modules/**", "paralleljs"],
+  "exclude": ["src/test", "**/node_modules/**"],
   "externalPattern": ["**/node_modules/**"],
   "excludePrivate": false,
   "hideGenerator": true,

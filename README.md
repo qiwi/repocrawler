@@ -1,20 +1,18 @@
-# blank-ts-monorepo
-Template mono repository for TS OSS projects  
+# @qiwi/repocrawler
+Crawlers and analyzers for Gerrit & GitHub
 
-[![Build Status](https://travis-ci.com/qiwi/blank-ts-monorepo.svg?branch=master)](https://travis-ci.com/qiwi/blank-ts-monorepo)
-[![David](https://img.shields.io/david/dev/qiwi/blank-ts-monorepo?label=deps)](https://david-dm.org/qiwi/blank-ts-monorepo?type=dev)
-[![Maintainability](https://api.codeclimate.com/v1/badges/14bc03164abbdb806f5a/maintainability)](https://codeclimate.com/github/antongolub/blank-ts-monorepo/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/14bc03164abbdb806f5a/test_coverage)](https://codeclimate.com/github/antongolub/blank-ts-monorepo/test_coverage)
-
-## Install
-```shell
-npm i <package-name>
-```
-
-## Usage
-```typescript
-// Code example goes here
-```
+## [@qiwi/repocrawler-infra](./packages/infra)
+Collection of packages for development
+## [@qiwi/repocrawler-common](./packages/infra)
+Common types & helper functions
+## [@qiwi/repocrawler-gerrit](./packages/gerrit)
+Gerrit crawler
+## @qiwi/repocrawler-github
+Not implemented
+## @qiwi/repocrawler-cli
+Not implemented
+## @qiwi/repocrawler-reporters
+Not implemented
 
 ## License
 [MIT](./LICENSE)

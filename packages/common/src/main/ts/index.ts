@@ -1,4 +1,2 @@
-import { AnyMap } from '@qiwi/substrate'
-
-export const foo = 'bar'
-export const baz: AnyMap = {}
+export * from './types'
+export * from './utils'
