@@ -1,4 +1,5 @@
 {
+  "extends": "./packages/infra/tsconfig.compiler.json",
   "compilerOptions": {
     "outDir": "temp/prebuild",
     "emitDeclarationOnly": true,
@@ -7,6 +8,8 @@
   },
   "references": [
     { "path": "./packages/common/tsconfig.es5.json" },
-    { "path": "./packages/gerrit/tsconfig.es5.json" }
+    { "path": "./packages/gerrit/tsconfig.es5.json" },
+    { "path": "./packages/github/tsconfig.es5.json" },
+    { "path": "./packages/reporters/tsconfig.es5.json" }
   ]
 }

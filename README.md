@@ -7,12 +7,11 @@ Collection of packages for development
 Common types & helper functions
 ## [@qiwi/repocrawler-gerrit](./packages/gerrit)
 Gerrit crawler
-## @qiwi/repocrawler-github
-Not implemented
+## [@qiwi/repocrawler-github](./packages/github)
+GitHub crawler
+## [@qiwi/repocrawler-reporters](./packages/reporters)
+Reporters for analyzing results of crawling
 ## @qiwi/repocrawler-cli
 Not implemented
-## @qiwi/repocrawler-reporters
-Not implemented
-
 ## License
 [MIT](./LICENSE)
