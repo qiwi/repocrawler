@@ -24,7 +24,8 @@
     "docs": "typedoc packages/**/src/main",
     "uglify": "lerna run uglify --stream --parallel",
     "deps:update": "npx npm-upgrade-monorepo",
-    "postupdate": "yarn && yarn bootstrap && yarn test:depauditfix && yarn clean && yarn build && yarn test"
+    "postupdate": "yarn && yarn bootstrap && yarn test:depauditfix && yarn clean && yarn build && yarn test",
+    "release": "npx -p @qiwi/semrel-toolkit multi-semrel"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
