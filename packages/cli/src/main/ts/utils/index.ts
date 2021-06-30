@@ -2,7 +2,7 @@ import { TCrawlerOpts, TRepoCrawler } from '@qiwi/repocrawler-common'
 import { createGerritCrawler } from '@qiwi/repocrawler-gerrit'
 import { createGithubCrawler } from '@qiwi/repocrawler-github'
 import findCacheDir from 'find-cache-dir'
-import { emptyDirSync,ensureDirSync } from 'fs-extra'
+import fse from 'fs-extra'
 import { Agent } from 'https'
 
 import { TCrawlerBaseOpts } from '../interfaces'
@@ -11,8 +11,8 @@ export const getResultsDir = (out?: string): string => {
   const path = out ||
     findCacheDir({ name: '@qiwi%2Frepocrawler-cli' }) ||
     `crawler-results-${Date.now()}`
-  ensureDirSync(path)
-  emptyDirSync(path)
+  fse.ensureDirSync(path)
+  fse.emptyDirSync(path)
   return path
 }
 

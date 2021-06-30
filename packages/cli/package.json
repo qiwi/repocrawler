@@ -29,18 +29,21 @@
     "test": "npm-run-all -p -l lint test:unit test:depcheck",
     "test:local": "npm-run-all -p -l lint:fix test:unit test:depcheck",
     "test:unit": "jest --config=jest.config.json --runInBand",
-    "test:depcheck": "depcheck --ignores tslib,eslint-*,prettier-*,**/*-infra --ignore-patterns typings,target",
+    "test:depcheck": "depcheck --ignores tslib,eslint-*,prettier-*,**/*-infra,tsc-es2020-fix --ignore-patterns typings,target",
     "prebuild": "buildstamp --git --out.path buildstamp.json",
     "build": "npm-run-all -p -l build:es5 build:es6 build:ts",
     "build:local": "yarn build:es5 && chmod +x ./target/es5/crawler/cli.js",
-    "build:es5": "mkdirp target/es5 && tsc -p tsconfig.es5.json",
+    "build:es5": "mkdirp target/es5 && tsc -p tsconfig.es5.json && tsc-es2020-fix --target target/es5",
     "build:es6": "mkdirp target/es6 && tsc -p tsconfig.es6.json",
     "build:ts": "cpy src/main/ts/ target/ts/",
     "uglify": "for f in $(find target -name '*.js'); do short=${f%.js}; terser -c -m -o $short.js -- $f; done",
-    "postupdate": "yarn && yarn build && yarn test"
+    "postupdate": "yarn && yarn build && yarn test",
+    "crawler": "./target/es5/crawler/cli.js"
   },
+  "type": "module",
   "devDependencies": {
-    "@qiwi/repocrawler-infra": "*"
+    "@qiwi/repocrawler-infra": "*",
+    "tsc-es2020-fix": "^2.2.2"
   },
   "repository": {
     "type": "git",
