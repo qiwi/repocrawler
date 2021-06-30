@@ -7,7 +7,7 @@ Crawlers and analyzers for Gerrit & GitHub
 | [@qiwi/repocrawler-common](./packages/infra) | Common types & helper functions |
 | [@qiwi/repocrawler-gerrit](./packages/gerrit) | Gerrit crawler |
 | [@qiwi/repocrawler-github](./packages/github) | GitHub crawler |
-| [@qiwi/repocrawler-cli](./packages/github) | CLI for crawling and making reports (last one has not been implemented) |
+| [@qiwi/repocrawler-cli](./packages/cli) | CLI for crawling and making reports (last one has not been implemented) |
 
 ## License
 [MIT](./LICENSE)
