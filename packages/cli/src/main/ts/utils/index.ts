@@ -2,21 +2,17 @@ import { TCrawlerOpts, TRepoCrawler } from '@qiwi/repocrawler-common'
 import { createGerritCrawler } from '@qiwi/repocrawler-gerrit'
 import { createGithubCrawler } from '@qiwi/repocrawler-github'
 import findCacheDir from 'find-cache-dir'
-import { existsSync } from 'fs'
+import { emptyDirSync,ensureDirSync } from 'fs-extra'
 import { Agent } from 'https'
-import rimraf from 'rimraf'
 
 import { TCrawlerBaseOpts } from '../interfaces'
 
-export const getTempDir = (): string =>
-  findCacheDir({ name: '@qiwi%2Frepocrawler-cli' }) ||
-  '.cache/@qiwi%2Frepocrawler-cli'
-
-export const getNonExistingTempDir = (): string => {
-  const path = getTempDir()
-  if (existsSync(path)) {
-    rimraf.sync(path)
-  }
+export const getResultsDir = (out?: string): string => {
+  const path = out ||
+    findCacheDir({ name: '@qiwi%2Frepocrawler-cli' }) ||
+    `crawler-results-${Date.now()}`
+  ensureDirSync(path)
+  emptyDirSync(path)
   return path
 }
 

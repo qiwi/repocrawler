@@ -3,7 +3,7 @@
 import meow from 'meow'
 
 import { EReportType } from '../interfaces'
-import { getTempDir } from '../utils'
+import { getResultsDir } from '../utils'
 import { makeReport } from './executor'
 
 const cli = meow(
@@ -28,7 +28,7 @@ const cli = meow(
     flags: {
       cwd: {
         type: 'string',
-        default: getTempDir(),
+        default: getResultsDir(),
       },
       package: {
         type: 'string',

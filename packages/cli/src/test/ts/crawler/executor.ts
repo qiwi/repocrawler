@@ -7,7 +7,7 @@ describe('launchCrawler', function () {
   it('calls necessary functions', async () => {
     const validateCrawlerCliArgsSpy = jest.spyOn(validators, 'validateCrawlerCliArgs')
       .mockImplementationOnce(params => params)
-    const mergeConfigSpy = jest.spyOn(configUtils, 'mergeCrawlerOpts')
+    const mergeConfigSpy = jest.spyOn(configUtils, 'resolveCrawlerOpts')
       .mockImplementationOnce(params => params as any)
     const fakeCrawler1: any = {
       fetchRepoInfo: jest.fn(() => Promise.resolve())
@@ -35,7 +35,7 @@ describe('launchCrawler', function () {
   it('loads config from file', async () => {
     jest.spyOn(validators, 'validateCrawlerCliArgs')
       .mockImplementationOnce(params => params)
-    jest.spyOn(configUtils, 'mergeCrawlerOpts')
+    jest.spyOn(configUtils, 'resolveCrawlerOpts')
       .mockImplementationOnce(params => params as any)
     const getConfigSpy = jest.spyOn(configUtils, 'getConfig')
       .mockImplementationOnce(() => ({ foo: 'bar' }) as any)

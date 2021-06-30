@@ -27,8 +27,9 @@
     "lint:fix": "yarn lint --fix",
     "format": "prettier --write 'src/**/*.ts'",
     "test": "npm-run-all -p -l lint test:unit test:depcheck",
+    "test:local": "npm-run-all -p -l lint:fix test:unit test:depcheck",
     "test:unit": "jest --config=jest.config.json --runInBand",
-    "test:depcheck": "depcheck --ignores tslib,eslint-*,prettier-*,**/*-infra --ignore-patterns typings",
+    "test:depcheck": "depcheck --ignores tslib,eslint-*,prettier-*,**/*-infra --ignore-patterns typings,target",
     "prebuild": "buildstamp --git --out.path buildstamp.json",
     "build": "npm-run-all -p -l build:es5 build:es6 build:ts",
     "build:local": "yarn build:es5 && chmod +x ./target/es5/crawler/cli.js",
@@ -39,8 +40,7 @@
     "postupdate": "yarn && yarn build && yarn test"
   },
   "devDependencies": {
-    "@qiwi/repocrawler-infra": "*",
-    "@types/rimraf": "^3.0.0"
+    "@qiwi/repocrawler-infra": "*"
   },
   "repository": {
     "type": "git",
@@ -60,7 +60,7 @@
     "@qiwi/substrate": "^1.20.9",
     "blork": "^9.3.0",
     "find-cache-dir": "^3.3.1",
-    "meow": "^10.0.1",
-    "rimraf": "^3.0.2"
+    "fs-extra": "^10.0.0",
+    "meow": "^10.0.1"
   }
 }

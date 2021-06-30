@@ -3,13 +3,13 @@ import { ILogger } from '@qiwi/substrate'
 
 import { TCrawlerCliOpts } from '../interfaces'
 import { createCrawler } from '../utils'
-import { getConfig, mergeCrawlerOpts } from '../utils/config'
+import { getConfig, resolveCrawlerOpts } from '../utils/config'
 import { areOptsWithConfig, validateCrawlerCliArgs } from '../utils/validators'
 
 export const launchCrawler = async (params: TCrawlerCliOpts, logger: ILogger = console): Promise<void> => {
   const validatedParams = validateCrawlerCliArgs(params)
   const configFromFile = areOptsWithConfig(validatedParams) ? getConfig(validatedParams.config) : undefined
-  const config = mergeCrawlerOpts(validatedParams, configFromFile)
+  const config = resolveCrawlerOpts(validatedParams, configFromFile)
   const { out, org, debug, limitCount, limitPeriod } = config
 
   const crawlers: TRepoCrawler[] = config.crawlers.map(opts => createCrawler(

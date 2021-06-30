@@ -1,27 +1,27 @@
-import fs from 'fs'
-import rimraf from 'rimraf'
+import fs from 'fs-extra'
 
 import { defaultCrawlerOpts } from '../../../main/ts/default'
-import { createCrawler, getNonExistingTempDir } from '../../../main/ts/utils'
+import { createCrawler, getResultsDir } from '../../../main/ts/utils'
 
 const dirRegexp = /node_modules\/\.cache\/@qiwi%2Frepocrawler-cli$/
 
-describe('getNonExistingTempDir', () => {
-  it('returns correct value', () => {
-    jest.spyOn(rimraf, 'sync').mockImplementation(() => {
-      /* noop */
-    })
-    expect(getNonExistingTempDir()).toMatch(dirRegexp)
+const dummyFunc = () => {
+  /* noop */
+}
+
+describe('getResultsDir', () => {
+  it('calls necessary functions', () => {
+    const ensureDirSyncSpy = jest.spyOn(fs, 'ensureDirSync').mockImplementation(dummyFunc)
+    const emptyDirSyncSpy = jest.spyOn(fs, 'emptyDirSync').mockImplementation(dummyFunc)
+    expect(getResultsDir()).toMatch(dirRegexp)
+    expect(ensureDirSyncSpy).toBeCalled()
+    expect(emptyDirSyncSpy).toBeCalled()
   })
 
-  it('deletes existing dir', () => {
-    const existSpy = jest.spyOn(fs, 'existsSync').mockImplementation(() => true)
-    const rimrafSpy = jest.spyOn(rimraf, 'sync').mockImplementation(() => {
-      /* noop */
-    })
-    expect(getNonExistingTempDir()).toMatch(dirRegexp)
-    expect(existSpy).toHaveBeenCalledWith(expect.stringMatching(dirRegexp))
-    expect(rimrafSpy).toHaveBeenCalledWith(expect.stringMatching(dirRegexp))
+  it('uses given path', () => {
+    jest.spyOn(fs, 'ensureDirSync').mockImplementation(dummyFunc)
+    jest.spyOn(fs, 'emptyDirSync').mockImplementation(dummyFunc)
+    expect(getResultsDir('path')).toMatch('path')
   })
 })
 

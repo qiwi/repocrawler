@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs-extra'
 
 import { defaultCrawlerOpts } from '../../../main/ts/default'
 import {
@@ -7,7 +7,7 @@ import {
   TGerritCrawlerOpts,
   TGithubCrawlerOpts
 } from '../../../main/ts/interfaces'
-import { getConfig, mergeCrawlerOpts } from '../../../main/ts/utils/config'
+import { getConfig, resolveCrawlerOpts } from '../../../main/ts/utils/config'
 import * as validators from '../../../main/ts/utils/validators'
 
 describe('mergeCrawlerOpts', function () {
@@ -110,16 +110,16 @@ describe('mergeCrawlerOpts', function () {
   ]
 
   testCases.forEach(({ description, config, cli, result }) => it(description, () => {
-    expect(mergeCrawlerOpts(cli, config)).toEqual(result)
+    expect(resolveCrawlerOpts(cli, config)).toEqual(result)
   }))
 })
 
 describe('getConfig', function () {
-  it('', () => {
+  it('reads config', () => {
     const path = 'path'
     const config = { foo: 'bar' }
-    const readFileSpy = jest.spyOn(fs, 'readFileSync')
-      .mockImplementation(() => JSON.stringify(config))
+    const readFileSpy = jest.spyOn(fs, 'readJsonSync')
+      .mockImplementation(() => config)
     const validatorSpy = jest.spyOn(validators, 'validateCrawlerCliConfig')
       .mockImplementation((config) => config)
 
