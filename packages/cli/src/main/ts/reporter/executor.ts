@@ -1,3 +1,3 @@
-export const makeReport = async (flags: any): Promise<void> => {
+export const makeReport = async (flags: unknown): Promise<void> => {
   console.log(flags)
 }

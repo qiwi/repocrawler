@@ -35,8 +35,8 @@ export type TGerritCrawlerOpts = TCrawlerBaseOpts & {
 }
 
 export type TCrawlerOptionalArgs = {
-  period?: number
-  count?: number
+  limitPeriod?: number
+  limitCount?: number
   debug?: boolean
   out?: string
   org?: string[]
@@ -55,11 +55,6 @@ export type TCrawlerCliOpts = TCrawlerCliOptsWithConfig | TCrawlerCliOptsWithout
 
 export type TCrawlerOpts = TGithubCrawlerOpts | TGerritCrawlerOpts
 
-export type TCrawlerCliConfig = {
-  org?: string[]
-  out?: string
-  period?: number
-  count?: number
-  debug?: boolean
+export type TCrawlerCliConfig = TCrawlerOptionalArgs & {
   crawlers: TCrawlerOpts[]
 }

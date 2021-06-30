@@ -1,5 +1,6 @@
-import { check } from 'blork'
 import { TVcs } from '@qiwi/repocrawler-common'
+import { check } from 'blork'
+
 import {
   TCrawlerBaseOpts,
   TCrawlerCliConfig,
@@ -18,15 +19,15 @@ export const authCheckers: { [vcs in TVcs]: (auth: any) => void } = {
   }
 }
 
-export const validateCrawlerOptionalArgs = (args: TCrawlerOptionalArgs) => {
+export const validateCrawlerOptionalArgs = (args: TCrawlerOptionalArgs): void => {
   check(args.org, 'org: str[]?')
   check(args.out, 'out: str?')
-  check(args.period, 'period: num?')
-  check(args.count, 'count: num?')
+  check(args.limitPeriod, 'limitPeriod: num?')
+  check(args.limitCount, 'limitCount: num?')
   check(args.debug, 'debug: bool?')
 }
 
-export const validateCrawlerOpts = (value: TCrawlerBaseOpts) => {
+export const validateCrawlerOpts = (value: TCrawlerBaseOpts): void => {
   check(value.vcs, `vcs: 'gerrit' | 'github'`)
   check(value.url, `url: str`)
   authCheckers[value.vcs](value.auth)
@@ -47,7 +48,7 @@ export const areOptsWithConfig = (args: TCrawlerCliOpts): args is TCrawlerCliOpt
   return !!(args as any).config
 }
 
-export const validateCrawlerCliArgs = (args: TCrawlerCliOpts) => {
+export const validateCrawlerCliArgs = (args: TCrawlerCliOpts): TCrawlerCliOpts => {
   if (areOptsWithConfig(args)) {
     check(args.config, '--config: str')
     validateCrawlerOptionalArgs(args)

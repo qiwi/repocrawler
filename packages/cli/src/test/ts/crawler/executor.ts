@@ -1,7 +1,7 @@
-import * as utils from '../../../main/ts/utils'
-import * as validators from '../../../main/ts/utils/validators'
-import * as configUtils from '../../../main/ts/utils/config'
 import { launchCrawler } from '../../../main/ts/crawler/executor'
+import * as utils from '../../../main/ts/utils'
+import * as configUtils from '../../../main/ts/utils/config'
+import * as validators from '../../../main/ts/utils/validators'
 
 describe('launchCrawler', function () {
   it('calls necessary functions', async () => {

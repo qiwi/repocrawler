@@ -1,8 +1,8 @@
 import fs from 'fs'
 import rimraf from 'rimraf'
 
-import { createCrawler, getNonExistingTempDir } from '../../../main/ts/utils'
 import { defaultCrawlerOpts } from '../../../main/ts/default'
+import { createCrawler, getNonExistingTempDir } from '../../../main/ts/utils'
 
 const dirRegexp = /node_modules\/\.cache\/@qiwi%2Frepocrawler-cli$/
 

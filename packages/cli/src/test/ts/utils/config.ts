@@ -1,3 +1,6 @@
+import fs from 'fs'
+
+import { defaultCrawlerOpts } from '../../../main/ts/default'
 import {
   TCrawlerCliConfig,
   TCrawlerCliOptsWithConfig,
@@ -5,8 +8,6 @@ import {
   TGithubCrawlerOpts
 } from '../../../main/ts/interfaces'
 import { getConfig, mergeCrawlerOpts } from '../../../main/ts/utils/config'
-import { defaultCrawlerOpts } from '../../../main/ts/default'
-import fs from 'fs'
 import * as validators from '../../../main/ts/utils/validators'
 
 describe('mergeCrawlerOpts', function () {
@@ -19,8 +20,8 @@ describe('mergeCrawlerOpts', function () {
 
   const defaultValues = {
     debug: false,
-    period: defaultCrawlerOpts.ratelimit.period,
-    count: defaultCrawlerOpts.ratelimit.count,
+    limitPeriod: defaultCrawlerOpts.ratelimit.period,
+    limitCount: defaultCrawlerOpts.ratelimit.count,
     out: expect.stringMatching(/.+/),
     org: undefined,
   }

@@ -1,3 +1,4 @@
+import { TCrawlerBaseOpts, TCrawlerOptionalArgs } from '../../../main/ts/interfaces'
 import {
   authCheckers,
   validateCrawlerCliArgs,
@@ -6,7 +7,6 @@ import {
   validateCrawlerOpts
 } from '../../../main/ts/utils/validators'
 import * as validators from '../../../main/ts/utils/validators'
-import { TCrawlerBaseOpts, TCrawlerOptionalArgs } from '../../../main/ts/interfaces'
 
 describe('authCheckers', function () {
   test('github auth checker', () => {
@@ -32,15 +32,15 @@ describe('validateCrawlerOptionalArgs', function () {
   const testCases: TTestCase[] = [
     {
       input: {
-        count: 42,
-        period: 21,
+        limitCount: 42,
+        limitPeriod: 21,
       },
       error: false
     },
     {
       input: {
-        count: 42,
-        period: 21,
+        limitCount: 42,
+        limitPeriod: 21,
         debug: true,
         org: ['foo']
       },
@@ -48,8 +48,8 @@ describe('validateCrawlerOptionalArgs', function () {
     },
     {
       input: {
-        count: 'asd',
-        period: 21,
+        limitCount: 'asd',
+        limitPeriod: 21,
         debug: true,
         org: ['foo']
       },
@@ -57,8 +57,8 @@ describe('validateCrawlerOptionalArgs', function () {
     },
     {
       input: {
-        count: 42,
-        period: 21,
+        limitCount: 42,
+        limitPeriod: 21,
         org: [42]
       },
       error: true

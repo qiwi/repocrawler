@@ -1,10 +1,11 @@
+import { TCrawlerOpts, TRepoCrawler } from '@qiwi/repocrawler-common'
+import { createGerritCrawler } from '@qiwi/repocrawler-gerrit'
+import { createGithubCrawler } from '@qiwi/repocrawler-github'
 import findCacheDir from 'find-cache-dir'
 import { existsSync } from 'fs'
 import { Agent } from 'https'
 import rimraf from 'rimraf'
-import { TCrawlerOpts, TRepoCrawler } from '@qiwi/repocrawler-common'
-import { createGithubCrawler } from '@qiwi/repocrawler-github'
-import { createGerritCrawler } from '@qiwi/repocrawler-gerrit'
+
 import { TCrawlerBaseOpts } from '../interfaces'
 
 export const getTempDir = (): string =>
@@ -39,5 +40,5 @@ export const createCrawler = (
   if (vcs === 'gerrit') {
     return createGerritCrawler({ baseUrl: url, auth }, opts)
   }
-  throw new Error('Unsupported vcs')
+  throw new Error(`Unsupported vcs, ${vcs}, should be 'gerrit' or 'github'`)
 }

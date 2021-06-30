@@ -2,9 +2,9 @@
 
 import meow from 'meow'
 
-import { makeReport } from './executor'
 import { EReportType } from '../interfaces'
 import { getTempDir } from '../utils'
+import { makeReport } from './executor'
 
 const cli = meow(
   `

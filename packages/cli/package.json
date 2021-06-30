@@ -53,10 +53,11 @@
   "homepage": "https://github.com/qiwi/repocrawler/#readme",
   "prettier": "prettier-config-qiwi",
   "dependencies": {
-    "@gribnoysup/wunderbar": "^2.2.2",
+    "@qiwi/repocrawler-common": "^0.0.0",
     "@qiwi/repocrawler-gerrit": "^0.0.0",
     "@qiwi/repocrawler-github": "^0.0.0",
     "@qiwi/repocrawler-reporters": "^0.0.0",
+    "@qiwi/substrate": "^1.20.9",
     "blork": "^9.3.0",
     "find-cache-dir": "^3.3.1",
     "meow": "^10.0.1",

@@ -4,7 +4,6 @@ import meow from 'meow'
 
 import { defaultCrawlerOpts } from '../default'
 import { launchCrawler } from './executor'
-import { getNonExistingTempDir } from '../utils'
 
 const cli = meow(
   `
@@ -21,8 +20,8 @@ const cli = meow(
       --auth.username, Gerrit credentials (if vcs is 'gerrit')
       --org, list of organizations to fetch, defaults to all
       --out, path to save results, defaults to node_modules/.cache/@qiwi%2Frepocrawler-cli
-      --count, max count of requests to VCS API per period, defaults to ${defaultCrawlerOpts.ratelimit.count}
-      --period, length of period in ms, defaults to ${defaultCrawlerOpts.ratelimit.period}
+      --limit-count, max count of requests to VCS API per period, defaults to ${defaultCrawlerOpts.ratelimit.count}
+      --limit-period, length of period in ms, defaults to ${defaultCrawlerOpts.ratelimit.period}
 `,
   {
     importMeta: import.meta,
@@ -46,24 +45,19 @@ const cli = meow(
       },
       org: {
         type: 'string',
-        isRequired: flags => !flags.config,
         isMultiple: true,
       },
       out: {
         type: 'string',
-        default: getNonExistingTempDir(),
       },
-      period: {
-        default: defaultCrawlerOpts.ratelimit.period,
+      limitPeriod: {
         type: 'number',
       },
-      count: {
-        default: defaultCrawlerOpts.ratelimit.count,
+      limitCount: {
         type: 'number',
       },
       debug: {
         type: 'boolean',
-        default: defaultCrawlerOpts.debug,
       }
     }
   },
