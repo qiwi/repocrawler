@@ -7,6 +7,10 @@ import { getConfig, resolveCrawlerOpts } from '../utils/config'
 import { areOptsWithConfig, validateCrawlerCliArgs } from '../utils/validators'
 
 export const launchCrawler = async (params: TCrawlerCliOpts, logger: ILogger = console): Promise<void> => {
+  if (params.org?.length === 0) {
+    delete params.org // meow returns empty array for undefined multiple flag
+  }
+
   const validatedParams = validateCrawlerCliArgs(params)
   const configFromFile = areOptsWithConfig(validatedParams) ? getConfig(validatedParams.config) : undefined
   const config = resolveCrawlerOpts(validatedParams, configFromFile)

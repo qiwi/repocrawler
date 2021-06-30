@@ -8,6 +8,7 @@ import {
   TCrawlerCliOptsWithConfig,
   TCrawlerOptionalArgs
 } from '../interfaces'
+import { areOptsWithCrawler } from './config'
 
 export const authCheckers: { [vcs in TVcs]: (auth: any) => void } = {
   gerrit: auth => {
@@ -52,6 +53,9 @@ export const validateCrawlerCliArgs = (args: TCrawlerCliOpts): TCrawlerCliOpts =
   if (areOptsWithConfig(args)) {
     check(args.config, '--config: str')
     validateCrawlerOptionalArgs(args)
+    if (areOptsWithCrawler(args)) {
+      validateCrawlerOpts(args)
+    }
     return args
   }
   validateCrawlerOpts(args)

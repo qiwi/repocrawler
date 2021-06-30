@@ -36,7 +36,7 @@ const cli = meow(
       },
       auth: {
         type: 'string',
-        isMultiple: true,
+        // isMultiple: true, meow somehow makes this flag mandatory when config is given
         isRequired: flags => !flags.config,
       },
       vcs: {
@@ -64,3 +64,8 @@ const cli = meow(
 )
 
 launchCrawler(cli.flags as any)
+  .then(() => process.exit(0))
+  .catch(e => {
+    console.error(e)
+    process.exit(1)
+  })

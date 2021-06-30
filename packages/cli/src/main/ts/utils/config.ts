@@ -7,7 +7,7 @@ import {
   TCrawlerCliOpts,
 } from '../interfaces'
 import { getResultsDir } from './index'
-import { areOptsWithConfig, validateCrawlerCliConfig } from './validators'
+import { validateCrawlerCliConfig } from './validators'
 
 // all these funcs are expected to be called after all validations, so checking presence of crawler in cliOpts by vcs should be enough
 export const areOptsWithCrawler = (
