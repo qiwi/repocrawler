@@ -56,6 +56,8 @@ crawler --config config.json --vcs gerrit --url https://other-gerrit.com/a --aut
 | config | path to config file | optional |
 | limit-count | max count of requests to VCS API per period | 10 |
 | limit-period | length of limit period in ms | 2000 |
+
+
 Last 5 flags can be given in config as top-level values. `vcs`, `auth`, `auth.username`, `auth.password`, `url` should be specified in objects of `crawlers` array field, see example in [Usage](#Usage)
 ## Reporter
 Not implemented
