@@ -1,8 +1,10 @@
 import { OctokitOptions } from '@octokit/core/dist-types/types'
 import { IComplexDelay } from 'push-it-to-the-limit'
 
+export type TVcs = 'gerrit' | 'github'
+
 export type TCommitInfo = {
-  vcs: 'gerrit' | 'github'
+  vcs: TVcs
   lastCommit: {
     hash: string
     message: string

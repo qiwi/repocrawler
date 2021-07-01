@@ -35,6 +35,7 @@
     "rimraf": "^3.0.2",
     "terser": "^5.6.0",
     "ts-jest": "^26.5.3",
+    "tsc-es2020-fix": "^2.2.2",
     "typedoc": "^0.20.30",
     "typescript": "^4.2.3"
   },
