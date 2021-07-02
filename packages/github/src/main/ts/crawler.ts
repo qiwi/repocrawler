@@ -5,6 +5,7 @@ import {
   TCrawlerOpts,
   TOctokitOpts,
   TRepoCrawler,
+  TRepoCrawlerBaseResultItem,
   writeRepoInfo,
 } from '@qiwi/repocrawler-common'
 import { ILogger } from '@qiwi/substrate'
@@ -96,9 +97,13 @@ export const createGithubCrawler = (
   const fetchRepoInfo: TRepoCrawler['fetchRepoInfo'] = async (savePath, paths, orgs) => {
     const _orgs = orgs || (await getOrgList())
     const repos = await getReposByOrgs(_orgs)
-    const repoInfo = await getInfoByRepos(repos, paths)
+    const repoInfo = paths
+      ? await getInfoByRepos(repos, paths)
+      : await getReportInfoByRepos(repos)
 
-    return Promise.allSettled(repoInfo.map(data => writeRepoInfo(data, savePath)))
+    return Promise.allSettled(
+      repoInfo.map((data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, savePath))
+    )
   }
 
   return {

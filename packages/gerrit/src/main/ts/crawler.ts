@@ -6,7 +6,7 @@ import {
   TCrawlerOpts,
   TGerritkitOpts,
   TRepoCrawler,
-  TVcs,
+  TRepoCrawlerBaseResultItem,
   writeRepoInfo
 } from '@qiwi/repocrawler-common'
 import { ILogger } from '@qiwi/substrate'
@@ -28,7 +28,7 @@ export const createGerritCrawler = (
   logger: ILogger = console,
 ): TRepoCrawler & TGerritCrawler => {
   const gerritkit = rateLimitWrapper(new GerritKit(baseUrl, auth), crawlerOpts.ratelimit)
-  const vcs: TVcs = 'gerrit'
+  const name = crawlerOpts.name || 'gerrit'
 
   const showLog = crawlerOpts.debug
 
@@ -72,7 +72,7 @@ export const createGerritCrawler = (
       .getContent({
         owner: org,
         repo,
-        path,
+        path: path.replace(/\//g, '%2F'),
         ref,
       })
       .then((d: any) => Buffer.from(d, 'base64').toString('utf-8'))
@@ -80,17 +80,22 @@ export const createGerritCrawler = (
 
   const { getRepoFiles, getInfoByRepos, getReportInfoByRepos } = commonCrawlerMethodsFactory(
     { getCommit, getRawContent },
-    { name: vcs, debug: showLog },
+    { name, debug: showLog },
     logger
   )
 
   const fetchRepoInfo: TRepoCrawler['fetchRepoInfo'] = async (savePath, paths, orgs) => {
     const repos = await getRepos()
-    const _orgs = orgs
+    const reposToFetch = orgs
       ? repos.filter(({ org }: { org: string }) => orgs.includes(org))
       : repos
-    const repoInfo = await getInfoByRepos(_orgs, paths)
-    return Promise.allSettled(repoInfo.map(data => writeRepoInfo(data, savePath)))
+    const repoInfo = paths
+      ? await getInfoByRepos(reposToFetch, paths)
+      : await getReportInfoByRepos(reposToFetch)
+
+    return Promise.allSettled(
+      repoInfo.map((data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, savePath))
+    )
   }
 
   return {

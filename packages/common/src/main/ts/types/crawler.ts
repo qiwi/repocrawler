@@ -27,19 +27,20 @@ export type TFile = {
   body?: string
 }
 
-export type TRepoCrawlerResultItem = {
+export type TRepoCrawlerBaseResultItem = {
   name: string
   info?: TCommitInfo
+}
+
+export type TRepoCrawlerResultItem = TRepoCrawlerBaseResultItem & {
   files?: TFile[]
 }
 
-export type TRepoCrawlerReportResultItem = {
-  name: string
+export type TRepoCrawlerReportResultItem = TRepoCrawlerBaseResultItem & {
   package?: PackageJson
   packageLock?: PackageLock
   shrinkLock?: Record<string, any>,
   yarnLock?: string
-  info?: TCommitInfo
 }
 
 export type TOctokitOpts = OctokitOptions
@@ -82,7 +83,7 @@ export type TBaseCrawler = {
     repo: string,
     path: string,
   ) => Promise<string>
-  fetchRepoInfo: (savePath: string, paths: string[], orgs?: Array<string>) => Promise<PromiseSettledResult<void>[]>
+  fetchRepoInfo: (savePath: string, paths?: string[], orgs?: Array<string>) => Promise<PromiseSettledResult<void>[]>
 }
 
 export type TRepoCrawler = TCommonCrawler & TBaseCrawler

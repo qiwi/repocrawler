@@ -51,7 +51,7 @@ crawler --config config.json --vcs gerrit --url https://other-gerrit.com/a --aut
 | vcs | `gerrit` or `github` | mandatory |
 | auth | Github API auth token (PAT) if `vcs` === `github` | mandatory if `vcs` === `github` |
 | auth.username, auth.password | Gerrit API credentials if `vcs` === `gerrit` | mandatory if `vcs` === `gerrit` |
-| path | list of file paths to fetch | mandatory |
+| path | list of file paths to fetch | fetch data for [@qiwi/repocrawler-reporters](../reporters) |
 | org | list of organizations/spaces to fetch | all organizations/spaces |
 | url | VCS API url | mandatory |
 | out | path to save results for crawling | `node_modules/.cache/@qiwi%2Frepocrawler-cli` |

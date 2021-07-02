@@ -2,7 +2,7 @@ import { ILogger } from '@qiwi/substrate'
 import { promises as fs } from 'fs'
 import { dirname, resolve } from 'path'
 
-import { TBaseCrawler, TCommonCrawler, TFile, TRepoCrawlerResultItem } from '../types'
+import { TBaseCrawler, TCommonCrawler, TFile, TRepoCrawlerBaseResultItem } from '../types'
 
 export const commonCrawlerMethodsFactory = (
   base: Omit<TBaseCrawler, 'fetchRepoInfo'>,
@@ -83,7 +83,7 @@ export const findAndParseJson = <T = Record<string, any>>(files: TFile[], path: 
 }
 
 export const writeRepoInfo = (
-  data: TRepoCrawlerResultItem,
+  data: TRepoCrawlerBaseResultItem,
   path: string,
 ): Promise<void> => {
   const resolvedPath = resolve(path, `${data.name}${Math.random().toString()}.json`)

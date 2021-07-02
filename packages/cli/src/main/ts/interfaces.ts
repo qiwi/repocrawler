@@ -47,7 +47,7 @@ export type TCrawlerOptionalArgsWithConfig = TCrawlerOptionalArgs & {
   config: string
 }
 
-export type TCrawlerCliOptsWithoutConfig = TCrawlerBaseOpts & TCrawlerOptionalArgs  & { paths: string[] }
+export type TCrawlerCliOptsWithoutConfig = TCrawlerBaseOpts & TCrawlerOptionalArgs
 
 export type TCrawlerCliOptsWithConfig = TCrawlerOptionalArgsWithConfig |
   TCrawlerOptionalArgsWithConfig & TCrawlerBaseOpts

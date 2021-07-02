@@ -25,8 +25,8 @@ describe('githubCrawler', () => {
     // @ts-ignore
     fn(...args).then((d) => d.data),
   )
-  process.on('unhandledRejection', () => {
-    // console.error(e)
+  process.on('unhandledRejection', (e) => {
+    console.error(e)
   })
 
   // @ts-ignore

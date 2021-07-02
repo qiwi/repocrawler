@@ -18,7 +18,7 @@ export const launchCrawler = async (params: TCrawlerCliOpts, logger: ILogger = c
 
   const crawlers: TRepoCrawler[] = config.crawlers.map(opts => createCrawler(
     opts,
-    { debug, ratelimit: { period: limitPeriod, count: limitCount }, name: `${opts.vcs} crawler` },
+    { debug, ratelimit: { period: limitPeriod, count: limitCount }, name: opts.vcs },
   ))
 
   try {
