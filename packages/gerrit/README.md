@@ -25,7 +25,7 @@ const crawler = createGerritCrawler(
   }
 )
 
-crawler.fetchRepoInfo('path/to/save/data', ['src/main/ts/index.ts'], ['organization1', 'organization2'])
+crawler.fetchRepoInfo({ out: 'path/to/save/data', paths: ['src/main/ts/index.ts'], orgs: ['organization1', 'organization2'] })
   .then(() => console.log('Done.'))
 ```
 ## API
