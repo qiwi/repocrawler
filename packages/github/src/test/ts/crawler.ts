@@ -1,3 +1,6 @@
+import { readFileSync } from 'fs'
+import { join } from 'path'
+
 import { createGithubCrawler } from '../../main/ts'
 import { opts } from '../../main/ts/default'
 import { githubCrawlerGetInfoByReposResponse } from './stub/githubCrawlerGetInfoByReposResponse'
@@ -6,10 +9,12 @@ import { octokitReposGetCommit } from './stub/octokitReposGetCommit'
 import { octokitReposGetContent } from './stub/octokitReposGetContent'
 import { octokitReposListForOrg } from './stub/octokitReposListForOrg'
 
+const packageExampleJson = readFileSync(join(__dirname, '..', 'resources', 'package.example.json'))
+
 describe('githubCrawler', () => {
   const githubCrawler = createGithubCrawler(
     {
-      baseUrl: 'https://github.qiwi.com/api/v3',
+      baseUrl: 'https://github.com/api/v3',
       auth: 'string',
     },
     opts,
@@ -124,54 +129,13 @@ describe('githubCrawler', () => {
 
   describe('getContent', () => {
     it('returns file', async () => {
-      const res = await githubCrawler.getContent(
+      const res = await githubCrawler.getRawContent(
         'jslab',
         'qorsproxy',
         'package.json',
       )
 
-      expect(res).toMatchObject({
-        name: 'qorsproxy',
-        description: 'Cors proxy for Qoder/Pusher',
-        keywords: ['cors', 'corsproxy', 'qors', 'qorsproxy'],
-        version: '3.0.2',
-        repository: { type: 'git', url: 'https://github.com/qiwi/qorsproxy' },
-        author: 'Anton Golub <a.golub@qiwi.com>',
-        engines: { node: '>=9.4.0 <10.0', npm: '>=5.6 <6.0' },
-        dependencies: {
-          '@std/esm': '^0.26.0',
-          'async-middleware': '^1.2.1',
-          'basic-auth': '^2.0.0',
-          express: '^4.16.3',
-          ip: '^1.1.5',
-          jsonschema: '^1.2.4',
-          'lodash-es': '^4.17.8',
-          optimist: '^0.6.1',
-          request: '^2.85.0',
-          winston: '^2.4.1',
-          'winston-daily-rotate-file': '^3.1.2',
-        },
-        '@std/esm': { mode: 'all', cjs: true },
-        main: 'src/app',
-        scripts: {
-          start_pm2: 'pm2 start npm --name qorsproxy -- start',
-          start: 'node -r @std/esm --use_strict src/app',
-          test: 'nyc mocha --opts .mocha.opts',
-          coveralls: 'npm test && nyc report --reporter=text-lcov | coveralls',
-        },
-        license: 'MIT',
-        devDependencies: {
-          chai: '^4.1.2',
-          'chai-spies': '^1.0.0',
-          'chai-subset': '^1.6.0',
-          coveralls: '^3.0.0',
-          glob: '^7.1.2',
-          mocha: '^5.1.1',
-          'mocha-lcov-reporter': '^1.3.0',
-          nyc: '^11.7.1',
-          reqresnext: '^1.3.0',
-        },
-      })
+      expect(res).toEqual(packageExampleJson.toString())
     })
   })
 })
@@ -179,7 +143,7 @@ describe('githubCrawler', () => {
 describe('getInfoByRepos', () => {
   const githubCrawler = createGithubCrawler(
     {
-      baseUrl: 'https://github.qiwi.com/api/v3',
+      baseUrl: 'https://github.com/api/v3',
       auth: 'string',
     },
     opts,
@@ -208,10 +172,15 @@ describe('getInfoByRepos', () => {
   })
 
   it('returns repo info', async () => {
-    const res = await githubCrawler.getInfoByRepos([
-      { org: 'jslab', repo: 'qorsproxy' },
-    ])
-    expect(res).toMatchObject(githubCrawlerGetInfoByReposResponse)
+    const res = await githubCrawler.getInfoByRepos(
+      [{ org: 'jslab', repo: 'qorsproxy' }],
+      ['package.json'],
+    )
+    expect(res[0].info).toMatchObject(githubCrawlerGetInfoByReposResponse[0].info)
+    expect(res[0].name).toEqual(githubCrawlerGetInfoByReposResponse[0].name)
+    const file = res[0].files?.[0]
+    expect(file?.body).toEqual(packageExampleJson.toString())
+    expect(file?.path).toEqual(githubCrawlerGetInfoByReposResponse[0].files[0].path)
   })
 })
 

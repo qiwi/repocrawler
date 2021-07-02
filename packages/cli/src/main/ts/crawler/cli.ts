@@ -19,6 +19,7 @@ const cli = meow(
       --auth.password, Gerrit credentials (if vcs is 'gerrit')
       --auth.username, Gerrit credentials (if vcs is 'gerrit')
       --org, list of organizations to fetch, defaults to all
+      --path, list of file paths to fetch
       --out, path to save results, defaults to node_modules/.cache/@qiwi%2Frepocrawler-cli
       --limit-count, max count of requests to VCS API per period, defaults to ${defaultCrawlerOpts.ratelimit.count}
       --limit-period, length of period in ms, defaults to ${defaultCrawlerOpts.ratelimit.period}
@@ -46,6 +47,10 @@ const cli = meow(
       org: {
         type: 'string',
         isMultiple: true,
+      },
+      path: {
+        type: 'string',
+        isMultiple: true, // TODO think about multiple fields with conditional isRequired
       },
       out: {
         type: 'string',

@@ -4,11 +4,11 @@ CLI for crawling and making reports
 ### Usage
 ```shell
 yarn add @qiwi/repocrawler-cli
-crawler --vcs gerrit --url http://gerrit.com/a --auth.username username --auth.password password --org common
+crawler --vcs gerrit --url http://gerrit.com/a --auth.username username --auth.password password --org common --org internal --path package.json
 ```
 or via npx
 ```shell
-npx -p @qiwi/repocrawler-cli crawler --vcs gerrit --url http://gerrit.com/a --auth.username username --auth.password password --org common
+npx -p @qiwi/repocrawler-cli crawler --vcs gerrit --url http://gerrit.com/a --auth.username username --auth.password password --org common --path package.json --path .npmrc
 ```
 You can also use config file:
 ```shell
@@ -51,6 +51,8 @@ crawler --config config.json --vcs gerrit --url https://other-gerrit.com/a --aut
 | vcs | `gerrit` or `github` | mandatory |
 | auth | Github API auth token (PAT) if `vcs` === `github` | mandatory if `vcs` === `github` |
 | auth.username, auth.password | Gerrit API credentials if `vcs` === `gerrit` | mandatory if `vcs` === `gerrit` |
+| path | list of file paths to fetch | fetch data for [@qiwi/repocrawler-reporters](../reporters) |
+| org | list of organizations/spaces to fetch | all organizations/spaces |
 | url | VCS API url | mandatory |
 | out | path to save results for crawling | `node_modules/.cache/@qiwi%2Frepocrawler-cli` |
 | config | path to config file | optional |
@@ -58,6 +60,7 @@ crawler --config config.json --vcs gerrit --url https://other-gerrit.com/a --aut
 | limit-period | length of limit period in ms | 2000 |
 
 
-Last 5 flags can be given in config as top-level values. `vcs`, `auth`, `auth.username`, `auth.password`, `url` should be specified in objects of `crawlers` array field, see example in [Usage](#Usage)
+`vcs`, `auth`, `auth.username`, `auth.password`, `url` should be specified in objects of `crawlers` array field, see example in [Usage](#Usage).
+Other flags can be given in config as top-level values. `limit-count` and `limit-period` should be written in camelCase in config.
 ## Reporter
 Not implemented

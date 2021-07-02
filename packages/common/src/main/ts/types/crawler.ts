@@ -1,4 +1,5 @@
 import { OctokitOptions } from '@octokit/core/dist-types/types'
+import { PackageJson, PackageLock } from '@qiwi/npm-types'
 import { IComplexDelay } from 'push-it-to-the-limit'
 
 export type TVcs = 'gerrit' | 'github'
@@ -12,24 +13,34 @@ export type TCommitInfo = {
       name: string
       email: string
       date: string
-    }
+    } | any
     committer: {
       name: string
       email: string
       date: string
-    }
+    } | any
   }
 }
 
-export type TRepoCrawlerResultItem = {
+export type TFile = {
+  path: string
+  body?: string
+}
+
+export type TRepoCrawlerBaseResultItem = {
   name: string
-  package: any
+  info?: TCommitInfo
+}
+
+export type TRepoCrawlerResultItem = TRepoCrawlerBaseResultItem & {
+  files?: TFile[]
+}
+
+export type TRepoCrawlerReportResultItem = TRepoCrawlerBaseResultItem & {
+  package?: PackageJson
+  packageLock?: PackageLock
+  shrinkLock?: Record<string, any>,
   yarnLock?: string
-  packageLock?: Record<string, any>
-  shrinkLock?: Record<string, any>
-  npmrc?: string
-  makefile?: string
-  info: TCommitInfo
 }
 
 export type TOctokitOpts = OctokitOptions
@@ -42,24 +53,43 @@ export type TGerritkitOpts = {
   baseUrl: string
 }
 
-export type TRepoCrawler = {
+export type TRepo = {
+  org: string
+  repo: string
+}
+
+export type TCommonCrawler = {
+  getRepoFiles: (
+    repo: TRepo,
+    paths: string[]
+  ) => Promise<TFile[]>
   getInfoByRepos: (
-    orgs: Array<{ org: string; repo: string }>,
+    repos: TRepo[],
+    paths: string[],
   ) => Promise<Array<TRepoCrawlerResultItem>>
-  fetchRepoInfo: (savePath: string, orgs?: Array<string>) => Promise<boolean>
+  getReportInfoByRepos: (
+    repos: TRepo[],
+  ) => Promise<Array<TRepoCrawlerReportResultItem>>
+}
+
+export type TBaseCrawler = {
   getCommit: (
     owner: string,
     repo: string,
     ref: string,
-  ) => Promise<TCommitInfo | undefined>
-  getContent: (
+  ) => Promise<TCommitInfo>
+  getRawContent: (
     owner: string,
     repo: string,
     path: string,
-  ) => Promise<Record<string, any>>
+  ) => Promise<string>
+  fetchRepoInfo: (opts: { out: string, paths?: string[], orgs?: Array<string>}) => Promise<PromiseSettledResult<void>[]>
 }
+
+export type TRepoCrawler = TCommonCrawler & TBaseCrawler
 
 export type TCrawlerOpts = {
   ratelimit: IComplexDelay
   debug: boolean
+  name?: string
 }

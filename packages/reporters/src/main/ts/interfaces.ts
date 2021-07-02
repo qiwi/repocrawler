@@ -1,4 +1,4 @@
-import { TRepoCrawlerResultItem } from '@qiwi/repocrawler-common'
+import { TRepoCrawlerReportResultItem } from '@qiwi/repocrawler-common'
 
 export interface ITreeReportItem {
   name: string
@@ -27,10 +27,10 @@ export interface IReport {
 }
 
 export interface ICommitInfo
-  extends Pick<
-    TRepoCrawlerResultItem['info']['lastCommit'],
+  extends Partial<Pick<
+    Required<TRepoCrawlerReportResultItem>['info']['lastCommit'],
     'hash' | 'message'
-  > {
+  >> {
   date: string
 }
 
@@ -40,7 +40,7 @@ export interface ITreeReport extends IReport {
 }
 
 export interface IUsageReportItem {
-  project: string
+  project?: string
   package: string
   versions: string[]
   commitInfo: ICommitInfo

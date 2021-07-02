@@ -17,11 +17,12 @@ export const areOptsWithCrawler = (
 export const resolveCrawlerOpts = (
   cliOpts: TCrawlerCliOpts,
   config?: TCrawlerCliConfig
-): Required<Omit<TCrawlerCliConfig, 'org'>> & { org?: string[] } => {
+): TCrawlerCliConfig & Required<Omit<TCrawlerCliConfig, 'org' | 'path'>> => {
   return {
     crawlers: areOptsWithCrawler(cliOpts)
       ? [{ vcs: cliOpts.vcs, auth: cliOpts.auth, url: cliOpts.url }]
       : (config?.crawlers || []),
+    path: cliOpts.path && cliOpts.path.length > 0 ? cliOpts.path : config?.path,
     org: cliOpts.org || config?.org,
     out: getResultsDir(cliOpts.out || config?.out),
     limitPeriod: cliOpts.limitPeriod || config?.limitPeriod || defaultCrawlerOpts.ratelimit.period,

@@ -11,6 +11,7 @@
     "clean": "lerna clean --yes && lerna run clean",
     "lint": "lerna run lint --parallel --stream --no-prefix",
     "test": "npm-run-all -p -l lint test:unit test:depcheck",
+    "test:local": "lerna run test:local",
     "test:unit": "jest --runInBand --detectOpenHandles --forceExit",
     "test:report": "yarn test && yarn coveralls:push",
     "test:concurrent": "lerna run test --parallel --stream --no-prefix && yarn coverage:merge",

@@ -40,6 +40,7 @@ export type TCrawlerOptionalArgs = {
   debug?: boolean
   out?: string
   org?: string[]
+  path?: string[]
 }
 
 export type TCrawlerOptionalArgsWithConfig = TCrawlerOptionalArgs & {

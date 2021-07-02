@@ -5,7 +5,7 @@ All functions return reports as objects
 ### getTreeReport(packageNamePattern, source, depType, cwd)
 Tree report
 ```typescript
-import { getTreeReport } from '@qiwi-private/jslab-repocrawler'
+import { getTreeReport } from '@qiwi/repocrawler-reporters'
 
 const treeReport = getTreeReport('^typescript$', 'auto', 'all', 'temp')
 ```
@@ -51,7 +51,7 @@ Arguments
 ### getUsageReport(packageNamePattern, versionRange, source, depType, cwd)
 Usage report
 ```typescript
-import { getUsageReport } from '@qiwi-private/jslab-repocrawler'
+import { getUsageReport } from '@qiwi/repocrawler-reporters'
 
 const usageReport = getUsageReport('^typescript$', '>=4.0.0', 'lock', 'all', 'temp')
 ```
@@ -87,7 +87,7 @@ Arguments
 ### getVersionsReport(packageNamePattern, versionRange, source, depType, cwd)
 Versions report
 ```typescript
-import { getVersionsReport } from '@qiwi-private/jslab-repocrawler'
+import { getVersionsReport } from '@qiwi/repocrawler-reporters'
 
 const versionsReport = getVersionsReport('^typescript$', '>=4.0.0', 'lock', 'all', 'temp')
 ```

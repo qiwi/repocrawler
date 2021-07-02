@@ -1,4 +1,5 @@
-import { TRepoCrawlerResultItem } from '@qiwi/repocrawler-common'
+import { PackageJson } from '@qiwi/npm-types'
+import { TRepoCrawlerReportResultItem } from '@qiwi/repocrawler-common'
 import { ILogger } from '@qiwi/substrate'
 import { parse } from '@yarnpkg/lockfile'
 
@@ -10,7 +11,9 @@ import {
 } from './interfaces'
 import { getRepoName, normalizeVersion } from './utils'
 
-const dependencyTypeMap = {
+const dependencyTypeMap: {
+  [key: string]: keyof Pick<PackageJson, 'dependencies' | 'devDependencies' | 'peerDependencies' | 'optionalDependencies'>
+} = {
   [EDependencyType.DEFAULT]: 'dependencies',
   [EDependencyType.DEV]: 'devDependencies',
   [EDependencyType.PEER]: 'peerDependencies',
@@ -20,7 +23,7 @@ const dependencyTypeMap = {
 export const dependencyRecordsToArray = (
   // eslint-disable-next-line default-param-last
   deps: Record<string, string> = {},
-  crawlerResult: TRepoCrawlerResultItem,
+  crawlerResult: TRepoCrawlerReportResultItem,
 ): TFoldedDependency[] =>
   foldDependencies(
     Object.keys(deps).map((name) => ({
@@ -31,7 +34,7 @@ export const dependencyRecordsToArray = (
   )
 
 export const getDependencies = (
-  crawlerResult: TRepoCrawlerResultItem,
+  crawlerResult: TRepoCrawlerReportResultItem,
   depType: EDependencyType,
 ): TFoldedDependency[] | undefined => {
   const packageJson = crawlerResult.package
@@ -42,19 +45,19 @@ export const getDependencies = (
   return depType === EDependencyType.ALL
     ? [
         ...dependencyRecordsToArray(
-          packageJson[dependencyTypeMap[EDependencyType.DEFAULT]],
+          packageJson[dependencyTypeMap[EDependencyType.DEFAULT] as keyof PackageJson['dependencies']],
           crawlerResult,
         ),
         ...dependencyRecordsToArray(
-          packageJson[dependencyTypeMap[EDependencyType.DEV]],
+          packageJson[dependencyTypeMap[EDependencyType.DEV] as keyof PackageJson['devDependencies']],
           crawlerResult,
         ),
         ...dependencyRecordsToArray(
-          packageJson[dependencyTypeMap[EDependencyType.PEER]],
+          packageJson[dependencyTypeMap[EDependencyType.PEER] as keyof PackageJson['peerDependencies']],
           crawlerResult,
         ),
         ...dependencyRecordsToArray(
-          packageJson[dependencyTypeMap[EDependencyType.OPTIONAL]],
+          packageJson[dependencyTypeMap[EDependencyType.OPTIONAL] as keyof PackageJson['optionalDependencies']],
           crawlerResult,
         ),
       ]
@@ -75,7 +78,7 @@ export const getYarnLockDependencies = (yarnLock?: string, logger: ILogger = con
 }
 
 export const getDepsBySource = (
-  crawlerResult: TRepoCrawlerResultItem,
+  crawlerResult: TRepoCrawlerReportResultItem,
   source: TDepsSource,
   depType?: EDependencyType,
   logger: ILogger = console,
@@ -111,7 +114,7 @@ export const getDepsBySource = (
 
 const foldDependencies = (
   deps: TDependency[],
-  crawlerResultItem: TRepoCrawlerResultItem,
+  crawlerResultItem: TRepoCrawlerReportResultItem,
 ) =>
   deps.reduce<TFoldedDependency[]>((acc, { name, version }) => {
     const dep = acc.find((item) => item.name === name)
@@ -128,7 +131,7 @@ const foldDependencies = (
   }, [])
 
 export const lockEntriesToDependencyArray = (
-  crawlerResult: TRepoCrawlerResultItem,
+  crawlerResult: TRepoCrawlerReportResultItem,
   entries?: Record<string, { version: string }>,
 ): TFoldedDependency[] | undefined => {
   if (!entries) {

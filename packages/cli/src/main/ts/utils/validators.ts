@@ -26,6 +26,7 @@ export const validateCrawlerOptionalArgs = (args: TCrawlerOptionalArgs): void =>
   check(args.limitPeriod, 'limitPeriod: num?')
   check(args.limitCount, 'limitCount: num?')
   check(args.debug, 'debug: bool?')
+  check(args.path, 'path: str[]?')
 }
 
 export const validateCrawlerOpts = (value: TCrawlerBaseOpts): void => {
