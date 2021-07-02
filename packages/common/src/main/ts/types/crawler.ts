@@ -83,7 +83,7 @@ export type TBaseCrawler = {
     repo: string,
     path: string,
   ) => Promise<string>
-  fetchRepoInfo: (savePath: string, paths?: string[], orgs?: Array<string>) => Promise<PromiseSettledResult<void>[]>
+  fetchRepoInfo: (opts: { out: string, paths?: string[], orgs?: Array<string>}) => Promise<PromiseSettledResult<void>[]>
 }
 
 export type TRepoCrawler = TCommonCrawler & TBaseCrawler

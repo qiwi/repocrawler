@@ -84,7 +84,7 @@ export const createGerritCrawler = (
     logger
   )
 
-  const fetchRepoInfo: TRepoCrawler['fetchRepoInfo'] = async (savePath, paths, orgs) => {
+  const fetchRepoInfo: TRepoCrawler['fetchRepoInfo'] = async ({ out, paths, orgs }) => {
     const repos = await getRepos()
     const reposToFetch = orgs
       ? repos.filter(({ org }: { org: string }) => orgs.includes(org))
@@ -94,7 +94,7 @@ export const createGerritCrawler = (
       : await getReportInfoByRepos(reposToFetch)
 
     return Promise.allSettled(
-      repoInfo.map((data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, savePath))
+      repoInfo.map((data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, out))
     )
   }
 

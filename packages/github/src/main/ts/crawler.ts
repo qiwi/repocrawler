@@ -94,7 +94,7 @@ export const createGithubCrawler = (
     logger
   )
 
-  const fetchRepoInfo: TRepoCrawler['fetchRepoInfo'] = async (savePath, paths, orgs) => {
+  const fetchRepoInfo: TRepoCrawler['fetchRepoInfo'] = async ({ out, paths, orgs }) => {
     const _orgs = orgs || (await getOrgList())
     const repos = await getReposByOrgs(_orgs)
     const repoInfo = paths
@@ -102,7 +102,7 @@ export const createGithubCrawler = (
       : await getReportInfoByRepos(repos)
 
     return Promise.allSettled(
-      repoInfo.map((data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, savePath))
+      repoInfo.map((data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, out))
     )
   }
 

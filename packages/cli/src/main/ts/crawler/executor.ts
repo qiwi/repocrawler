@@ -22,7 +22,7 @@ export const launchCrawler = async (params: TCrawlerCliOpts, logger: ILogger = c
   ))
 
   try {
-    await Promise.all(crawlers.map(crawler => crawler.fetchRepoInfo(out, path, org)))
+    await Promise.all(crawlers.map(crawler => crawler.fetchRepoInfo({ out, paths: path, orgs: org })))
     logger.log(`Crawling has been finished! Results are saved in ${out}`)
   } catch (e) {
     logger.error(e)
