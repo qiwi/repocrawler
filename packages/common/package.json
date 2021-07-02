@@ -27,8 +27,9 @@
     "lint:fix": "yarn lint --fix",
     "format": "prettier --write 'src/**/*.ts'",
     "test": "npm-run-all -p -l lint test:unit test:depcheck",
+    "test:local": "npm-run-all -p -l lint:fix test:unit test:depcheck",
     "test:unit": "jest --config=jest.config.json --runInBand",
-    "test:depcheck": "depcheck --ignores tslib,eslint-*,prettier-*,**/*-infra --ignore-patterns typings",
+    "test:depcheck": "depcheck --ignores tslib,eslint-*,prettier-*,**/*-infra --ignore-patterns typings,target,flow-typed",
     "prebuild": "buildstamp --git --out.path buildstamp.json",
     "build": "npm-run-all -p -l build:es5 build:es6 build:ts build:libdef docs",
     "build:es5": "mkdirp target/es5 && tsc -p tsconfig.es5.json",
@@ -42,11 +43,13 @@
   "dependencies": {
     "@octokit/core": "^3.4.0",
     "@qiwi/deep-proxy": "^1.8.1",
+    "@qiwi/npm-types": "^1.0.3",
     "push-it-to-the-limit": "^1.17.1",
     "tslib": "^2.1.0"
   },
   "devDependencies": {
-    "@qiwi/repocrawler-infra": "*"
+    "@qiwi/repocrawler-infra": "*",
+    "@qiwi/substrate": "^1.20.9"
   },
   "peerDependencies": {},
   "optionalDependencies": {},
