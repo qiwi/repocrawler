@@ -40,13 +40,14 @@ export type TCrawlerOptionalArgs = {
   debug?: boolean
   out?: string
   org?: string[]
+  path?: string[]
 }
 
 export type TCrawlerOptionalArgsWithConfig = TCrawlerOptionalArgs & {
   config: string
 }
 
-export type TCrawlerCliOptsWithoutConfig = TCrawlerBaseOpts & TCrawlerOptionalArgs
+export type TCrawlerCliOptsWithoutConfig = TCrawlerBaseOpts & TCrawlerOptionalArgs  & { paths: string[] }
 
 export type TCrawlerCliOptsWithConfig = TCrawlerOptionalArgsWithConfig |
   TCrawlerOptionalArgsWithConfig & TCrawlerBaseOpts

@@ -22,6 +22,7 @@ export const resolveCrawlerOpts = (
     crawlers: areOptsWithCrawler(cliOpts)
       ? [{ vcs: cliOpts.vcs, auth: cliOpts.auth, url: cliOpts.url }]
       : (config?.crawlers || []),
+    path: cliOpts.path || config?.path || [],
     org: cliOpts.org || config?.org,
     out: getResultsDir(cliOpts.out || config?.out),
     limitPeriod: cliOpts.limitPeriod || config?.limitPeriod || defaultCrawlerOpts.ratelimit.period,

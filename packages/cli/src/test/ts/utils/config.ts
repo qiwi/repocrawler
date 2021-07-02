@@ -56,7 +56,8 @@ describe('mergeCrawlerOpts', function () {
             url: 'http://localhost:8080'
           }
         ],
-        org: ['common']
+        org: ['common'],
+        path: ['path'],
       },
       result: {
         crawlers: [
@@ -64,6 +65,7 @@ describe('mergeCrawlerOpts', function () {
         ],
         ...defaultValues,
         org: ['common'],
+        path: ['path'],
       }
     },
     {
@@ -74,37 +76,43 @@ describe('mergeCrawlerOpts', function () {
       config: {
         crawlers: [
           gerritOpts
-        ]
+        ],
+        path: ['path'],
       },
       result: {
         crawlers: [
           gerritOpts
         ],
-        ...defaultValues
+        ...defaultValues,
+        path: ['path'],
       },
     },
     {
       description: 'gets all data from cliOps when config is not given',
       cli: {
         config: 'config',
-        ...gerritOpts
+        ...gerritOpts,
+        path: ['foo'],
       },
       result: {
         crawlers: [
           gerritOpts
         ],
         ...defaultValues,
+        path: ['foo'],
       },
     },
     {
       description: 'returns empty array of crawlers',
       cli: {
         config: 'config',
+        path: ['bar'],
       },
       result: {
         crawlers: [
         ],
         ...defaultValues,
+        path: ['bar'],
       },
     }
   ]

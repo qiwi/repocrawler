@@ -164,7 +164,7 @@ describe('validateCrawlerCliArgs', function () {
     expect(() => validateCrawlerCliArgs(config as any)).toThrow()
   })
 
-  it('calls validateCrawlerOptionalArgsSpy', () => {
+  it('calls validateCrawlerOptionalArgs', () => {
     const config = { config: 'str' }
     const validateCrawlerOptionalArgsSpy = jest.spyOn(validators, 'validateCrawlerOptionalArgs')
       .mockImplementation(() => { /* noop */ })
@@ -175,7 +175,7 @@ describe('validateCrawlerCliArgs', function () {
   })
 
   it('calls necessary validators for non-config opts', () => {
-    const config = {}
+    const config = { path: ['path']}
     const validateCrawlerOptionalArgsSpy = jest.spyOn(validators, 'validateCrawlerOptionalArgs')
       .mockImplementation(() => { /* noop */ })
     const validateCrawlerOptsSpy = jest.spyOn(validators, 'validateCrawlerOpts')

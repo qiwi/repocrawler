@@ -14,14 +14,15 @@ export const launchCrawler = async (params: TCrawlerCliOpts, logger: ILogger = c
   const validatedParams = validateCrawlerCliArgs(params)
   const configFromFile = areOptsWithConfig(validatedParams) ? getConfig(validatedParams.config) : undefined
   const config = resolveCrawlerOpts(validatedParams, configFromFile)
-  const { out, org, debug, limitCount, limitPeriod } = config
+  const { out, org, debug, limitCount, limitPeriod, path } = config
 
   const crawlers: TRepoCrawler[] = config.crawlers.map(opts => createCrawler(
     opts,
-    { debug, ratelimit: { period: limitPeriod, count: limitCount }}
+    { debug, ratelimit: { period: limitPeriod, count: limitCount }, name: `${opts.vcs} crawler` },
   ))
+
   try {
-    await Promise.all(crawlers.map(crawler => crawler.fetchRepoInfo(out, org)))
+    await Promise.all(crawlers.map(crawler => crawler.fetchRepoInfo(out, path, org)))
     logger.log(`Crawling has been finished! Results are saved in ${out}`)
   } catch (e) {
     logger.error(e)

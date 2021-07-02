@@ -1,6 +1,8 @@
 import { TCrawlerOpts, TRepoCrawler } from '@qiwi/repocrawler-common'
 import { createGerritCrawler } from '@qiwi/repocrawler-gerrit'
 import { createGithubCrawler } from '@qiwi/repocrawler-github'
+import { ILogger, LogLevel } from '@qiwi/substrate'
+import * as console from 'console'
 import findCacheDir from 'find-cache-dir'
 import fse from 'fs-extra'
 import { Agent } from 'https'
@@ -16,10 +18,18 @@ export const getResultsDir = (out?: string): string => {
   return path
 }
 
+export const getLogger = (prefix: string, logger: ILogger = console): ILogger => {
+  return Object.values(LogLevel).reduce((acc, cur) => {
+    acc[cur] = (...args: any[]) => logger[cur](`${prefix} ${args.join(' ')}`)
+    return acc
+  }, {} as ILogger)
+}
+
 export const createCrawler = (
   { vcs, url, auth }: TCrawlerBaseOpts,
   opts: TCrawlerOpts
 ): TRepoCrawler => {
+  const logger = opts.name ? getLogger(opts.name + ':') : undefined
   if (vcs === 'github') {
     return createGithubCrawler(
       {
@@ -31,10 +41,12 @@ export const createCrawler = (
           }),
         },
       },
-      opts)
+      opts,
+      logger,
+    )
   }
   if (vcs === 'gerrit') {
-    return createGerritCrawler({ baseUrl: url, auth }, opts)
+    return createGerritCrawler({ baseUrl: url, auth }, opts, logger)
   }
   throw new Error(`Unsupported vcs, ${vcs}, should be 'gerrit' or 'github'`)
 }
