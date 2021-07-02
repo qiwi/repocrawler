@@ -1,4 +1,4 @@
-import { TRepoCrawlerResultItem } from '@qiwi/repocrawler-common'
+import { TRepoCrawlerReportResultItem } from '@qiwi/repocrawler-common'
 import { ILogger } from '@qiwi/substrate'
 import { sep } from 'path'
 
@@ -19,7 +19,7 @@ export const getUsageReport = async (
     .then(contents => contents.reduce(
       (acc, cur) => {
         try {
-          const data = JSON.parse(cur.body) as TRepoCrawlerResultItem
+          const data = JSON.parse(cur.body) as TRepoCrawlerReportResultItem
           const deps = getDepsBySource(data, source, depType, logger)
           if (!deps) {
             return acc
@@ -33,7 +33,7 @@ export const getUsageReport = async (
                 ),
             )
             .map(({ name, versions }) => ({
-              project: data.package.name,
+              project: data.package?.name,
               package: name,
               versions,
               commitInfo: getCommitInfo(data.info),

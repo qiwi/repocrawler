@@ -27,6 +27,7 @@
     "lint:fix": "yarn lint --fix",
     "format": "prettier --write 'src/**/*.ts'",
     "test": "npm-run-all -p -l lint test:unit test:depcheck",
+    "test:local": "npm-run-all -p -l lint:fix test:unit test:depcheck",
     "test:unit": "jest --config=jest.config.json --runInBand",
     "test:depcheck": "depcheck --ignores tslib,eslint-*,prettier-*,**/*-infra --ignore-patterns typings,flow-typed",
     "prebuild": "buildstamp --git --out.path buildstamp.json",
@@ -47,6 +48,7 @@
     "tslib": "^2.1.0"
   },
   "devDependencies": {
+    "@qiwi/npm-types": "^1.0.3",
     "@qiwi/repocrawler-infra": "*",
     "@qiwi/substrate": "^1.20.6",
     "@types/semver": "^7.3.4",

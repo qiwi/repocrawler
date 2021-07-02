@@ -1,4 +1,4 @@
-import { TRepoCrawlerResultItem } from '@qiwi/repocrawler-common'
+import { TRepoCrawlerReportResultItem } from '@qiwi/repocrawler-common'
 import { ILogger } from '@qiwi/substrate'
 import { sep } from 'path'
 
@@ -53,7 +53,7 @@ export const getTreeReport = async (
   ).then(content => content.reduce(
     (acc, cur) => {
       try {
-        const body: TRepoCrawlerResultItem = JSON.parse(cur.body)
+        const body: TRepoCrawlerReportResultItem = JSON.parse(cur.body)
         if (body.package) {
           acc.totalProjectsCount += 1
         }

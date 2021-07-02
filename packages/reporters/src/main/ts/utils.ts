@@ -1,4 +1,4 @@
-import { TRepoCrawlerResultItem } from '@qiwi/repocrawler-common'
+import { TRepoCrawlerReportResultItem } from '@qiwi/repocrawler-common'
 import { ILogger } from '@qiwi/substrate'
 import { readFile } from 'fs'
 import glob from 'glob'
@@ -41,7 +41,7 @@ export const normalizeVersion = (version: string): string => {
 }
 
 export const getRepoName = (
-  item: TRepoCrawlerResultItem,
+  item: TRepoCrawlerReportResultItem,
 ): { vcs: string; repo: string } | undefined =>
   item.info && {
     vcs: item.info.vcs,
@@ -49,7 +49,7 @@ export const getRepoName = (
   }
 
 export const getCommitInfo = (
-  info: TRepoCrawlerResultItem['info'],
+  info: TRepoCrawlerReportResultItem['info'],
 ): ICommitInfo => ({
   hash: info?.lastCommit?.hash,
   message: info?.lastCommit?.message,
