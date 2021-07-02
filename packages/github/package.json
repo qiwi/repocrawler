@@ -27,6 +27,7 @@
     "lint:fix": "yarn lint --fix",
     "format": "prettier --write 'src/**/*.ts'",
     "test": "npm-run-all -p -l lint test:unit test:depcheck",
+    "test:local": "npm-run-all -p -l lint:fix test:unit test:depcheck",
     "test:unit": "jest --config=jest.config.js --runInBand --unhandled-rejections=strict",
     "test:depcheck": "depcheck --ignores tslib,eslint-*,prettier-*,**/*-infra --ignore-patterns typings",
     "prebuild": "buildstamp --git --out.path buildstamp.json",
