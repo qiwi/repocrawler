@@ -25,10 +25,31 @@
     "json",
     "node"
   ],
-  "preset": "ts-jest",
-  "globals": {
-    "ts-jest": {
-      "tsconfig": "<rootDir>/tsconfig.test.json"
+  "projects": [
+    {
+      "displayName": "integration",
+      "testMatch": [
+        "<rootDir>/src/it/ts/**/*.ts"
+      ],
+      "preset": "ts-jest",
+      "globals": {
+        "ts-jest": {
+          "tsconfig": "<rootDir>/tsconfig.test.json"
+        }
+      }
+    },
+    {
+      "testEnvironment": "node",
+      "displayName": "unit",
+      "testMatch": [
+        "<rootDir>/src/test/ts/**/*.ts"
+      ],
+      "preset": "ts-jest",
+      "globals": {
+        "ts-jest": {
+          "tsconfig": "<rootDir>/tsconfig.test.json"
+        }
+      }
     }
-  }
+  ]
 }
