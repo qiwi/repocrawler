@@ -8,6 +8,7 @@
     "<rootDir>/packages/common/jest.config.json",
     "<rootDir>/packages/gerrit/jest.config.json",
     "<rootDir>/packages/github/jest.config.js",
-    "<rootDir>/packages/reporters/jest.config.json"
+    "<rootDir>/packages/reporters/jest.config.json",
+    "<rootDir>/packages/cli/jest.config.json"
   ]
 }
