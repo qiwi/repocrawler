@@ -39,11 +39,13 @@ const paths = [
 const expectedFiles = [
   {
     path: paths[0],
-    body: '42'
+    body: '42',
+    reason: undefined,
   },
   {
     path: paths[1],
-    body: '42'
+    body: '42',
+    reason: undefined,
   }
 ]
 const results = [
@@ -76,11 +78,12 @@ describe('commonCrawlerMethodsFactory', function () {
       const dummyLogger = {
         error: jest.fn()
       } as any
+      const error = new Error('error')
       const baseCrawler = commonCrawlerMethodsFactory(
         {
           getRawContent: (_: any, __: any, path: string) =>
             path === 'errorPath'
-              ? Promise.reject(new Error('error'))
+              ? Promise.reject(error)
               : Promise.resolve('42'),
         } as any,
         { name: 'test-crawler', debug: true },
@@ -92,6 +95,7 @@ describe('commonCrawlerMethodsFactory', function () {
         ...expectedFiles,
         {
           path: 'errorPath',
+          reason: error
         }
       ])
       expect(dummyLogger.error).toBeCalledWith(expect.stringMatching(/error$/))
