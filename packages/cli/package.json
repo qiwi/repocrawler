@@ -32,7 +32,7 @@
     "test:depcheck": "depcheck --ignores tslib,eslint-*,prettier-*,**/*-infra,tsc-es2020-fix --ignore-patterns typings,target,flow-typed,temp-*",
     "prebuild": "buildstamp --git --out.path buildstamp.json",
     "build": "npm-run-all -p -l build:es5 build:es6 build:ts",
-    "build:local": "yarn build:es5 && chmod +x ./target/es5/crawler/cli.js",
+    "build:local": "yarn build:es5 && chmod +x ./target/es5/crawler/cli.js && chmod +x ./target/es5/reporter/cli.js",
     "build:es5": "mkdirp target/es5 && tsc -p tsconfig.es5.json && tsc-es2020-fix --target target/es5",
     "build:es6": "mkdirp target/es6 && tsc -p tsconfig.es6.json",
     "build:ts": "cpy '**/*' '../../../target/ts/' --cwd='src/main/ts' --parents",
@@ -54,7 +54,8 @@
     "url": "https://github.com/qiwi/repocrawler/issues"
   },
   "bin": {
-    "crawler": "target/es5/crawler/cli.js"
+    "crawler": "target/es5/crawler/cli.js",
+    "reporter": "target/es5/reporter/cli.js"
   },
   "homepage": "https://github.com/qiwi/repocrawler/#readme",
   "prettier": "prettier-config-qiwi",

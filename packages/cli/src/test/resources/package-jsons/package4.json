@@ -1,0 +1,21 @@
+{
+    "name": "package4",
+    "info": {
+        "vcs": "gerrit",
+        "lastCommit": {
+            "hash": "1234567890123456789012345678901234567890",
+            "message": "foo",
+            "author": {
+                "name": "foo",
+                "email": "foo@foo.foo",
+                "date": "2020-09-08T17:46:40.912Z"
+            },
+            "committer": {
+                "name": "foo",
+                "email": "foo@foo.foo",
+                "date": "2020-09-08T17:46:40.912Z"
+            }
+        }
+    },
+    "yarnLock": false
+}
