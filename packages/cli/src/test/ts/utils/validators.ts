@@ -1,10 +1,13 @@
-import { TCrawlerBaseOpts, TCrawlerOptionalArgs } from '../../../main/ts/interfaces'
+import { EDependencyType, TDepsSource } from '@qiwi/repocrawler-reporters'
+
+import { EReportType, TCrawlerBaseOpts, TCrawlerOptionalArgs, TReporterCliArgs } from '../../../main/ts/interfaces'
 import {
   authCheckers,
   validateCrawlerCliArgs,
   validateCrawlerCliConfig,
   validateCrawlerOptionalArgs,
-  validateCrawlerOpts
+  validateCrawlerOpts,
+  validateReporterCliArgs,
 } from '../../../main/ts/utils/validators'
 import * as validators from '../../../main/ts/utils/validators'
 
@@ -186,4 +189,60 @@ describe('validateCrawlerCliArgs', function () {
     expect(validateCrawlerOptionalArgsSpy).toBeCalledWith(config)
     expect(validateCrawlerOptsSpy).toBeCalledWith(config)
   })
+})
+
+describe('validateReportArgs', () => {
+  const testCases: Array<{
+    input: TReporterCliArgs
+    description: string
+    invalid: boolean
+  }> = [
+    {
+      input: {
+        source: 'foo' as TDepsSource,
+        deps: EDependencyType.DEFAULT,
+        package: 'bar',
+        cwd: 'baz',
+        range: 'bat',
+        report: EReportType.TREE,
+      },
+      description: 'throws an error when source is not correct',
+      invalid: true,
+    },
+    {
+      input: {
+        source: 'package',
+        deps: EDependencyType.DEFAULT,
+        package: 'bar',
+        cwd: 'baz',
+        range: 'bat',
+        report: EReportType.USAGE,
+      },
+      description:
+        'does not throw when usage report args are present and correct',
+      invalid: false,
+    },
+    {
+      input: {
+        source: 'lock',
+        deps: EDependencyType.DEFAULT,
+        package: 'bar',
+        cwd: 'baz',
+        report: EReportType.TREE,
+      },
+      description:
+        'does not throw when tree report args are present and correct',
+      invalid: false,
+    },
+  ]
+
+  testCases.forEach(({ description, input, invalid }) =>
+    it(description, () => {
+      if (invalid) {
+        expect(() => validateReporterCliArgs(input)).toThrow()
+      } else {
+        expect(() => validateReporterCliArgs(input)).not.toThrow()
+      }
+    }),
+  )
 })

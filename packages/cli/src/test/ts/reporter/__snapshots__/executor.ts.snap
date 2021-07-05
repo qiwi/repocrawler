@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`makeReport calls tree report maker and prints report 1`] = `
+"{
+	\\"packageNamePattern\\": \\"bar\\",
+	\\"depType\\": \\"all\\",
+	\\"source\\": \\"auto\\",
+	\\"data\\": [],
+	\\"totalProjectsCount\\": 4
+}"
+`;
+
+exports[`makeReport calls usage report maker and prints report 1`] = `
+"{
+	\\"packageNamePattern\\": \\"bar\\",
+	\\"depType\\": \\"all\\",
+	\\"source\\": \\"auto\\",
+	\\"versionRange\\": \\"foo\\",
+	\\"data\\": []
+}"
+`;
+
+exports[`makeReport sorts report data 1`] = `
+"{
+	\\"packageNamePattern\\": \\"^@types/jest\\",
+	\\"depType\\": \\"all\\",
+	\\"source\\": \\"package\\",
+	\\"data\\": [
+		{
+			\\"name\\": \\"@types/jest-json-schema\\",
+			\\"usageCount\\": 3,
+			\\"ratio\\": 0.75,
+			\\"repos\\": [
+				{
+					\\"vcs\\": \\"github\\",
+					\\"repo\\": \\"package2\\"
+				},
+				{
+					\\"vcs\\": \\"github\\",
+					\\"repo\\": \\"package3\\"
+				},
+				{
+					\\"vcs\\": \\"github\\",
+					\\"repo\\": \\"package5\\"
+				}
+			],
+			\\"minVersion\\": \\"2.1.2\\",
+			\\"maxVersion\\": \\"2.1.2\\"
+		},
+		{
+			\\"name\\": \\"@types/jest\\",
+			\\"usageCount\\": 4,
+			\\"ratio\\": 1,
+			\\"repos\\": [
+				{
+					\\"vcs\\": \\"gerrit\\",
+					\\"repo\\": \\"package1\\"
+				},
+				{
+					\\"vcs\\": \\"github\\",
+					\\"repo\\": \\"package2\\"
+				},
+				{
+					\\"vcs\\": \\"github\\",
+					\\"repo\\": \\"package3\\"
+				},
+				{
+					\\"vcs\\": \\"github\\",
+					\\"repo\\": \\"package5\\"
+				}
+			],
+			\\"minVersion\\": \\"26.0.4\\",
+			\\"maxVersion\\": \\"26.0.13\\"
+		}
+	],
+	\\"totalProjectsCount\\": 4
+}"
+`;

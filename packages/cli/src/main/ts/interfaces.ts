@@ -7,13 +7,12 @@ export enum EReportType {
   VERSIONS = 'versions',
 }
 
-export type TReportCliFlags = {
+export type TReporterCliArgs = {
   package: string
-  depType?: EDependencyType
-  cwd: string
-  versionRange?: string
-  reportType: EReportType
-  showChart?: number
+  deps?: EDependencyType
+  cwd?: string
+  range?: string
+  report: EReportType
   sort?: TReportSortOptions
   source: TDepsSource
 }

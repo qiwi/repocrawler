@@ -1,12 +1,15 @@
 import { TVcs } from '@qiwi/repocrawler-common'
+import { EDependencyType } from '@qiwi/repocrawler-reporters'
 import { check } from 'blork'
 
 import {
+  EReportType,
   TCrawlerBaseOpts,
   TCrawlerCliConfig,
   TCrawlerCliOpts,
   TCrawlerCliOptsWithConfig,
-  TCrawlerOptionalArgs
+  TCrawlerOptionalArgs,
+  TReporterCliArgs
 } from '../interfaces'
 import { areOptsWithCrawler } from './config'
 
@@ -61,5 +64,30 @@ export const validateCrawlerCliArgs = (args: TCrawlerCliOpts): TCrawlerCliOpts =
   }
   validateCrawlerOpts(args)
   validateCrawlerOptionalArgs(args)
+  return args
+}
+
+const getBlorkUnionFromEnum = (e: Record<string, any>): string =>
+  Object.values(e).map(item => `'${item}'`).join(' | ')
+
+export const validateReporterCliArgs = (args: TReporterCliArgs): TReporterCliArgs => {
+  check(args.source, `source: 'package' | 'auto' | 'lock'`)
+  check(args.report, `report: ${getBlorkUnionFromEnum(EReportType)}`)
+  check(args.package, `package: str`)
+  check(args.deps, `deps: ${getBlorkUnionFromEnum(EDependencyType)}`)
+  check(args.cwd, `cwd: str?`)
+
+  if (args.report === EReportType.USAGE || args.report === EReportType.VERSIONS) {
+    check(args.range, `range: str`)
+  }
+
+  if (args.sort) {
+    check(args.sort.order, `sort.order: 'asc' | 'desc' | undefined`)
+    check(
+      args.sort.field,
+      `sort.field: 'project' | 'package' | 'commitDate' | 'name' | 'ratio' | 'usageCount' | 'minVersion' | 'maxVersion' | 'version'`
+    )
+  }
+
   return args
 }
