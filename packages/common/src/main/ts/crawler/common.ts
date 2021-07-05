@@ -22,7 +22,8 @@ export const commonCrawlerMethodsFactory = (
         }
         return {
           path: paths[i],
-          body: promise.status === 'fulfilled' ? promise.value : undefined
+          body: promise.status === 'fulfilled' ? promise.value : undefined,
+          reason: promise.status === 'rejected' ? promise.reason : undefined
         }
       }))
   }

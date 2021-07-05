@@ -25,6 +25,7 @@ export type TCommitInfo = {
 export type TFile = {
   path: string
   body?: string
+  reason?: any
 }
 
 export type TRepoCrawlerBaseResultItem = {
