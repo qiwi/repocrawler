@@ -1,6 +1,6 @@
 {
   "name": "@qiwi/repocrawler-cli",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -43,7 +43,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@qiwi/repocrawler-infra": "*"
+    "@qiwi/repocrawler-infra": "1.0.0"
   },
   "repository": {
     "type": "git",
@@ -60,10 +60,10 @@
   "homepage": "https://github.com/qiwi/repocrawler/#readme",
   "prettier": "prettier-config-qiwi",
   "dependencies": {
-    "@qiwi/repocrawler-common": "^0.0.0",
-    "@qiwi/repocrawler-gerrit": "^0.0.0",
-    "@qiwi/repocrawler-github": "^0.0.0",
-    "@qiwi/repocrawler-reporters": "^0.0.0",
+    "@qiwi/repocrawler-common": "1.0.0",
+    "@qiwi/repocrawler-gerrit": "1.0.0",
+    "@qiwi/repocrawler-github": "1.0.0",
+    "@qiwi/repocrawler-reporters": "1.0.0",
     "@qiwi/substrate": "^1.20.9",
     "blork": "^9.3.0",
     "find-cache-dir": "^3.3.1",
