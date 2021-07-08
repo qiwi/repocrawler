@@ -1,6 +1,7 @@
 import { GerritKit } from '@gerritkit/rest'
 import {
   commonCrawlerMethodsFactory,
+  PromisePool,
   rateLimitWrapper,
   TCommitInfo,
   TCrawlerOpts,
@@ -34,10 +35,10 @@ export const createGerritCrawler = (
 
   const getRepos = async (orgs?: string[]) => {
     if (orgs && orgs.length > 0) {
-      return Promise.all(
-        orgs.map((org) =>
-          gerritkit.repos.listForOrg({ org }).then(splitRepoName),
-        ),
+      return PromisePool.all(
+        orgs,
+        (org) => gerritkit.repos.listForOrg({ org }).then(splitRepoName),
+        crawlerOpts.poolSize
       ).then((data) => data.flat())
     }
 
@@ -93,8 +94,10 @@ export const createGerritCrawler = (
       ? await getInfoByRepos(reposToFetch, paths)
       : await getReportInfoByRepos(reposToFetch)
 
-    return Promise.allSettled(
-      repoInfo.map((data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, out))
+    return PromisePool.allSettled(
+      repoInfo,
+      (data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, out),
+      crawlerOpts.poolSize
     )
   }
 

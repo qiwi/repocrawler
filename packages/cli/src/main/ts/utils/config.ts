@@ -27,6 +27,7 @@ export const resolveCrawlerOpts = (
     out: getResultsDir(cliOpts.out || config?.out),
     limitPeriod: cliOpts.limitPeriod || config?.limitPeriod || defaultCrawlerOpts.ratelimit.period,
     limitCount: cliOpts.limitCount || config?.limitCount || defaultCrawlerOpts.ratelimit.count,
+    poolSize: cliOpts.poolSize || config?.poolSize || defaultCrawlerOpts.poolSize,
     debug: cliOpts.debug || config?.debug || false,
   }
 }

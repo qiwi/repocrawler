@@ -22,6 +22,7 @@ describe('mergeCrawlerOpts', function () {
     debug: false,
     limitPeriod: defaultCrawlerOpts.ratelimit.period,
     limitCount: defaultCrawlerOpts.ratelimit.count,
+    poolSize: defaultCrawlerOpts.poolSize,
     out: expect.stringMatching(/.+/),
     org: undefined,
   }

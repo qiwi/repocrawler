@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
-import { join } from 'path'
 import nock from 'nock'
+import { join } from 'path'
 
 import { createGerritCrawler } from '../../main/ts'
 import { opts } from '../../main/ts/default'
@@ -116,6 +116,7 @@ describe('gerritCrawler', () => {
           period: 1000,
           count: 1
         },
+        poolSize: 2,
         debug: false
       }
     )

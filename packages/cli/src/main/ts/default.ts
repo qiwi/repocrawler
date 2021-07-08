@@ -6,4 +6,5 @@ export const defaultCrawlerOpts: TCrawlerOpts = {
     count: 10
   },
   debug: true,
+  poolSize: 2,
 }

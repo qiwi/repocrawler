@@ -92,6 +92,7 @@ export type TRepoCrawler = TCommonCrawler & TBaseCrawler
 
 export type TCrawlerOpts = {
   ratelimit: IComplexDelay
+  poolSize: number
   debug: boolean
   name?: string
 }

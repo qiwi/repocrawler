@@ -14,11 +14,11 @@ export const launchCrawler = async (params: TCrawlerCliOpts, logger: ILogger = c
   const validatedParams = validateCrawlerCliArgs(params)
   const configFromFile = areOptsWithConfig(validatedParams) ? getConfig(validatedParams.config) : undefined
   const config = resolveCrawlerOpts(validatedParams, configFromFile)
-  const { out, org, debug, limitCount, limitPeriod, path } = config
+  const { out, org, debug, limitCount, limitPeriod, path, poolSize } = config
 
   const crawlers: TRepoCrawler[] = config.crawlers.map(opts => createCrawler(
     opts,
-    { debug, ratelimit: { period: limitPeriod, count: limitCount }, name: opts.vcs },
+    { debug, ratelimit: { period: limitPeriod, count: limitCount }, name: opts.vcs, poolSize },
   ))
 
   try {
