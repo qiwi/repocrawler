@@ -17,7 +17,7 @@ const splitRepoName = (data: string[]) =>
     return { org, repo }
   })
 
-type TGerritCrawler = {
+type TGerritCrawler = TRepoCrawler & {
   getRepos: (orgs?: string[]) => Promise<Array<{ org: string; repo: string }>>
   gerritkit: InstanceType<typeof GerritKit>
 }
@@ -26,7 +26,7 @@ export const createGerritCrawler = (
   { baseUrl, auth }: TGerritkitOpts,
   crawlerOpts: TCrawlerOpts,
   logger: ILogger = console,
-): TRepoCrawler & TGerritCrawler => {
+): TGerritCrawler => {
   const gerritkit = rateLimitWrapper(new GerritKit(baseUrl, auth), crawlerOpts.ratelimit)
   const name = crawlerOpts.name || 'gerrit'
 

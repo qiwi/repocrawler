@@ -79,9 +79,9 @@ export const createGithubCrawler = (
       }
   }
 
-  const getRawContent = async (owner: string, repo: string, path: string) => {
+  const getRawContent = async (owner: string, repo: string, path: string, ref?: string) => {
     return octokit.repos
-      .getContent({ owner, repo, path })
+      .getContent({ owner, repo, path, ref })
       .then((res: any) => {
           return Buffer.from(res.data.content, 'base64').toString('utf-8')
         }
