@@ -36,6 +36,7 @@ export type TGerritCrawlerOpts = TCrawlerBaseOpts & {
 export type TCrawlerOptionalArgs = {
   limitPeriod?: number
   limitCount?: number
+  poolSize?: number
   debug?: boolean
   out?: string
   org?: string[]

@@ -8,8 +8,8 @@ import { launchCrawler } from './executor'
 const cli = meow(
   `
     Usage:
-      repocrawler --vcs github --auth 1234567890123456789012345678901234567890 --url https://github.org.com/api/v3 --out temp --org jslab 
-      repocrawler --vcs gerrit --auth.username username --auth.password password --url https://gerrit.org.com/api --out temp --org jslab --org common
+      crawler --vcs github --auth 1234567890123456789012345678901234567890 --url https://github.org.com/api/v3 --out temp --org jslab 
+      crawler --vcs gerrit --auth.username username --auth.password password --url https://gerrit.org.com/api --out temp --org jslab --org common
     Options
       --config, path to config
       or you can define crawler opts via flags:
@@ -23,6 +23,7 @@ const cli = meow(
       --out, path to save results, defaults to node_modules/.cache/@qiwi%2Frepocrawler-cli
       --limit-count, max count of requests to VCS API per period, defaults to ${defaultCrawlerOpts.ratelimit.count}
       --limit-period, length of period in ms, defaults to ${defaultCrawlerOpts.ratelimit.period}
+      --pool-size, number of workers for every operation, defaults to ${defaultCrawlerOpts.poolSize} 
 `,
   {
     importMeta: import.meta,
@@ -59,6 +60,9 @@ const cli = meow(
         type: 'number',
       },
       limitCount: {
+        type: 'number',
+      },
+      poolSize: {
         type: 'number',
       },
       debug: {

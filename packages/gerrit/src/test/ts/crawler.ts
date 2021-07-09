@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs'
+import nock from 'nock'
 import { join } from 'path'
 
 import { createGerritCrawler } from '../../main/ts'
@@ -9,7 +10,14 @@ import { listProjects } from './stub/listProjects'
 
 const packageExampleJson = readFileSync(join(__dirname, '..', 'resources', 'package.example.json'))
 
-describe('gerritCrowler', () => {
+const commitRevision = '67ebf73496383c6777035e374d2d664009e2aa5c'
+const commit = `)]}'
+  {
+    "ref": "HEAD",
+    "revision": "${commitRevision}"
+  }`
+
+describe('gerritCrawler', () => {
   const gerritkitOpts = {
     baseUrl: 'https://gerrit.osmp.ru/a',
     auth: {
@@ -18,17 +26,14 @@ describe('gerritCrowler', () => {
     },
   }
   const gerritCrawler = createGerritCrawler(gerritkitOpts, opts)
-  // @ts-ignore
   const { gerritkit } = gerritCrawler
 
-  // @ts-ignore
   beforeAll(() => {
     gerritkit.repos.listForOrg = async () => listProjects
-    // @ts-ignore
     gerritkit.repos.getCommit = async () => getCommit
-    // @ts-ignore
     gerritkit.repos.getContent = async () => getContent
   })
+
   describe('getRepos', () => {
     it('returns repos', async () => {
       const res = await gerritCrawler.getRepos(['jslab'])
@@ -82,5 +87,44 @@ describe('gerritCrowler', () => {
       )
       expect(res).toEqual(packageExampleJson.toString())
     })
+  })
+
+  it('is throttled', async () => {
+    const baseUrl = 'http://localhost:3000'
+    const file = 'package.json'
+    const org = 'jslab'
+    const repos = ['foo', 'bar', 'baz', 'bat']
+    const apiRouteMocks = repos.map(repo => [
+      nock(baseUrl)
+        .get(`/projects/${org}%2F${repo}/branches/HEAD`)
+        .reply(200, commit),
+      nock(baseUrl)
+        .get(`/projects/${org}%2F${repo}/branches/${commitRevision}/files/${file}/content`)
+        .reply(200, getContent)
+    ])
+
+    const crawler = createGerritCrawler(
+      {
+        baseUrl,
+        auth: {
+          username: 'username',
+          password: 'password',
+        }
+      },
+      {
+        ratelimit: {
+          period: 1000,
+          count: 1
+        },
+        poolSize: 2,
+        debug: false
+      }
+    )
+
+    const startTime = Date.now()
+    await Promise.all(repos.map(repo => crawler.getRawContent(org, repo, file)))
+    const endTime = Date.now() - startTime
+    expect(endTime).toBeGreaterThanOrEqual(3000)
+    expect(apiRouteMocks.every(([commitMock, fileMock]) => commitMock.isDone() && fileMock.isDone()))
   })
 })

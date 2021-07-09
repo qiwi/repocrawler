@@ -22,5 +22,5 @@ Fetch files and last commits of given repos by `paths`
 ### getReportInfoByRepos(repo: [TRepo](./src/main/ts/types/crawler.ts#L57)): Promise<[TRepoCrawlerReportResultItem](./src/main/ts/types/crawler.ts#L40)[]>
 Get `package.json`, `yarn.lock`, `package-lock.json`, `npm-shrinkwrap.json` and last commits if given repos. Json-files are parsed.
 Output files can be used as input for [@qiwi/repocrawler-reporters](../reporters)
-## commonCrawlerMethodsFactory(base: TBaseCrawler, opts: { name: string, debug?: boolean }, logger: ILogger): [TCommonCrawler](./src/main/ts/types/crawler.ts#L62)
+### commonCrawlerMethodsFactory(base: TBaseCrawler, opts: { name: string, debug?: boolean }, logger: ILogger): [TCommonCrawler](./src/main/ts/types/crawler.ts#L62)
 Returns object with common crawler methods.

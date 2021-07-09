@@ -1,6 +1,7 @@
 import { Octokit } from '@octokit/rest'
 import {
   commonCrawlerMethodsFactory,
+  PromisePool,
   rateLimitWrapper,
   TCrawlerOpts,
   TOctokitOpts,
@@ -34,8 +35,9 @@ export const createGithubCrawler = (
   }
 
   const getReposByOrgs = async (orgs: string[]) => {
-    const repos = await Promise.all(
-      orgs.map((org) =>
+    const repos = await PromisePool.all(
+      orgs,
+      (org) =>
         octokit
           .paginate(octokit.repos.listForOrg, { org })
           .then((data: any) => ({
@@ -43,7 +45,7 @@ export const createGithubCrawler = (
             org,
           }))
           .catch((e: any) => e),
-      ),
+      crawlerOpts.poolSize
     )
 
     return repos
@@ -79,9 +81,9 @@ export const createGithubCrawler = (
       }
   }
 
-  const getRawContent = async (owner: string, repo: string, path: string) => {
+  const getRawContent = async (owner: string, repo: string, path: string, ref?: string) => {
     return octokit.repos
-      .getContent({ owner, repo, path })
+      .getContent({ owner, repo, path, ref })
       .then((res: any) => {
           return Buffer.from(res.data.content, 'base64').toString('utf-8')
         }
@@ -101,8 +103,10 @@ export const createGithubCrawler = (
       ? await getInfoByRepos(repos, paths)
       : await getReportInfoByRepos(repos)
 
-    return Promise.allSettled(
-      repoInfo.map((data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, out))
+    return PromisePool.allSettled(
+      repoInfo,
+      (data: TRepoCrawlerBaseResultItem) => writeRepoInfo(data, out),
+      crawlerOpts.poolSize
     )
   }
 

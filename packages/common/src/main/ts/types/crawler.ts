@@ -83,6 +83,7 @@ export type TBaseCrawler = {
     owner: string,
     repo: string,
     path: string,
+    ref?: string,
   ) => Promise<string>
   fetchRepoInfo: (opts: { out: string, paths?: string[], orgs?: Array<string>}) => Promise<PromiseSettledResult<void>[]>
 }
@@ -91,6 +92,7 @@ export type TRepoCrawler = TCommonCrawler & TBaseCrawler
 
 export type TCrawlerOpts = {
   ratelimit: IComplexDelay
+  poolSize: number
   debug: boolean
   name?: string
 }

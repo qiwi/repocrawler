@@ -5,5 +5,6 @@ export const opts: TCrawlerOpts = {
     period: 2000,
     count: 10,
   },
+  poolSize: 2,
   debug: true,
 }

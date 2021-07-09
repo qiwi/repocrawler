@@ -58,10 +58,10 @@ crawler --config config.json --vcs gerrit --url https://other-gerrit.com/a --aut
 | config | path to config file | optional |
 | limit-count | max count of requests to VCS API per period | 10 |
 | limit-period | length of limit period in ms | 2000 |
+| pool-size | number of workers for every operation | 2 |
 
-
-`vcs`, `auth`, `auth.username`, `auth.password`, `url` should be specified in objects of `crawlers` array field, see example in [Usage](#Usage).
-Other flags can be given in config as top-level values. `limit-count` and `limit-period` should be written in camelCase in config.
+`vcs`, `auth`, `auth.username`, `auth.password`, `url` should be specified in objects of `crawlers` array field of config file, see example in [Usage](#Usage).
+Other flags can be given in config as top-level values. Kebab-case options should be written in camelCase in the config.
 ## Reporter
 ### Usage
 ```shell
@@ -87,7 +87,7 @@ npx -p @qiwi/repocrawler-cli repoter --report tree --cwd temp --package ^typescr
 #### Tree report
 This report type shows for every package satisfying given `package` pattern:
 - list of repositories which use given package;
-- used min and max versions; 
+- the used min and max versions; 
 - usage count;
 - ratio as `usageCount`/`totalProjectsCount`.
 
@@ -132,8 +132,8 @@ temp-qiwi-forks-types-tree-report:
 #### Usage report
 This report shows for every package satisfying given `package` pattern:
 - name of npm-project using given package;
-- used version of the package;
-- info about latest commit in the project.
+- the used version of the package;
+- info about the latest commit in the project.
 ```shell
 reporter --report usage --cwd temp-qiwi-forks --package ^typescript$ --range ">=4.1.0" --deps dev --source package > temp-qiwi-forks-ts-usage-report.json
 ```
@@ -179,6 +179,7 @@ The same as usage report, but contains used versions only
 ```shell
 reporter --report versions --cwd temp-qiwi-forks --package ^typescript$ --range ">=4.1.0" --deps dev --source package > temp-qiwi-forks-ts-versions-report.json
 ```
+temp-qiwi-forks-ts-versions-report.json:
 ```json
 {
 	"packageNamePattern": "^typescript$",
