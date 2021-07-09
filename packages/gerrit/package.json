@@ -1,6 +1,6 @@
 {
   "name": "@qiwi/repocrawler-gerrit",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@gerritkit/rest": "1.3.3",
-    "@qiwi/repocrawler-common": "1.0.0",
+    "@qiwi/repocrawler-common": "1.1.0",
     "@qiwi/substrate": "^1.20.4"
   },
   "devDependencies": {
