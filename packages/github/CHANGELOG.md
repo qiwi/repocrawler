@@ -1,3 +1,18 @@
+# @qiwi/repocrawler-github [1.1.0](https://github.com/qiwi/repocrawler/compare/@qiwi/repocrawler-github@1.0.0...@qiwi/repocrawler-github@1.1.0) (2021-07-09)
+
+
+### Features
+
+* add PromisePool ([#12](https://github.com/qiwi/repocrawler/issues/12)) ([67c98cd](https://github.com/qiwi/repocrawler/commit/67c98cd8d2efe189b5721bc21aaf52ea97df52c7))
+
+
+
+
+
+### Dependencies
+
+* **@qiwi/repocrawler-common:** upgraded to 1.1.0
+
 # @qiwi/repocrawler-github 1.0.0 (2021-07-06)
 
 
