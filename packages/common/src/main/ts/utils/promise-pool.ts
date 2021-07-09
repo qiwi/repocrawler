@@ -9,13 +9,15 @@ export const splitArrayEvenly = <T>(arr: T[], numberOfParts: number): T[][] => {
 }
 
 export const flatMatrixEvenly = <T = any>(matrix: T[][]): T[] => {
-  const array: T[] = []
-
-  while(matrix.some(subArr => subArr.length > 0)) {
-    matrix.forEach(subArr => subArr.length > 0 && array.push(subArr.shift() as T))
-  }
-
-  return array
+  return matrix.reduce(
+    (acc, cur, i) => {
+      cur.forEach((value, j) => {
+        acc[j * matrix.length + i] = value
+      })
+      return acc
+    },
+    []
+  )
 }
 
 export const workerFactory = <T = any>(
