@@ -41,11 +41,11 @@
     "postupdate": "yarn && yarn build && yarn test"
   },
   "dependencies": {
-    "@octokit/core": "^3.4.0",
-    "@qiwi/deep-proxy": "^1.8.1",
+    "@octokit/core": "^3.5.1",
+    "@qiwi/deep-proxy": "^1.8.2",
     "@qiwi/npm-types": "^1.0.3",
-    "push-it-to-the-limit": "^1.17.1",
-    "tslib": "^2.1.0"
+    "push-it-to-the-limit": "^1.17.2",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@qiwi/repocrawler-infra": "1.0.0",
