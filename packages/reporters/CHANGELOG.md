@@ -1,3 +1,13 @@
+## @qiwi/repocrawler-reporters [1.0.1](https://github.com/qiwi/repocrawler/compare/@qiwi/repocrawler-reporters@1.0.0...@qiwi/repocrawler-reporters@1.0.1) (2021-07-09)
+
+
+
+
+
+### Dependencies
+
+* **@qiwi/repocrawler-common:** upgraded to 1.1.0
+
 # @qiwi/repocrawler-reporters 1.0.0 (2021-07-06)
 
 
