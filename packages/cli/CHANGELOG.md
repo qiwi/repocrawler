@@ -1,3 +1,10 @@
+## @qiwi/repocrawler-cli [1.1.1](https://github.com/qiwi/repocrawler/compare/@qiwi/repocrawler-cli@1.1.0...@qiwi/repocrawler-cli@1.1.1) (2021-07-12)
+
+
+### Bug Fixes
+
+* **cli:** remove rejectUnauthorized ([#17](https://github.com/qiwi/repocrawler/issues/17)) ([f6c4367](https://github.com/qiwi/repocrawler/commit/f6c4367fcf2de919c1a1dec83b09e116f3ec020c))
+
 # @qiwi/repocrawler-cli [1.1.0](https://github.com/qiwi/repocrawler/compare/@qiwi/repocrawler-cli@1.0.0...@qiwi/repocrawler-cli@1.1.0) (2021-07-09)
 
 
