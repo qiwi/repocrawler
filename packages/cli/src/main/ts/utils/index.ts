@@ -4,7 +4,6 @@ import { createGithubCrawler } from '@qiwi/repocrawler-github'
 import { ILogger, LogLevel } from '@qiwi/substrate'
 import findCacheDir from 'find-cache-dir'
 import fse from 'fs-extra'
-import { Agent } from 'https'
 
 import { TCrawlerBaseOpts } from '../interfaces'
 
@@ -34,11 +33,6 @@ export const createCrawler = (
       {
         baseUrl: url,
         auth,
-        request: {
-          agent: new Agent({
-            rejectUnauthorized: false,
-          }),
-        },
       },
       opts,
       logger,
